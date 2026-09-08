@@ -3,322 +3,483 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>hair room ルーチェ｜熊本・上通の小さな美容室（制作サンプル）</title>
-<meta name="description" content="熊本市・上通アーケード近くの小さな美容室。カット・カラー・髪質改善。LINEで予約できます。※このサイトは制作サンプルです。">
-<meta name="robots" content="noindex">
-<meta property="og:title" content="hair room ルーチェ｜熊本・上通の小さな美容室">
-<meta property="og:description" content="悩みから選べるメニュー。LINEで予約。※制作サンプル">
+<title>木戸建築設計｜熊本の工務店・注文住宅とリノベーション（制作サンプル）</title>
+<meta name="description" content="熊本市・阿蘇周辺で、木の見える家を建てています。土地探しから設計・施工・引き渡し後の点検まで。無料の家づくり相談を受け付けています。※このサイトはWeb制作のサンプルです。">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:type" content="website">
+<meta property="og:title" content="木戸建築設計｜熊本の工務店・注文住宅とリノベーション">
+<meta property="og:description" content="木の見える家を、熊本で。※制作サンプル">
+<meta property="og:image" content="img/hero.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23121210'/%3E%3Cpath d='M6 20 16 11l10 9' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/hero.jpg" imagesrcset="img/hero@s.jpg 880w, img/hero.jpg 2400w" imagesizes="100vw">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#f7f2ea; --paper:#fffdf9; --ink:#2b2a27; --muted:#6f6a62;
-  --brand:#b8643c; --brand-d:#8f4a2a; --sage:#8a9a7b; --line:#e6ddd0;
-  --shadow:0 10px 30px rgba(60,40,20,.08);
-  --r:18px;
+  --bg:#FFFFFF; --bg2:#F5F3EF; --ink:#121210; --sub:#6E6A62;
+  --rule:#DCD8D0; --rule-2:#EAE7E1;
+  --wood:#9A6C3C;
+  --ease:cubic-bezier(.16,1,.3,1);
+  --f:.28s; --s:.9s;
+  --gut:clamp(20px,4.6vw,72px);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;overflow-x:hidden;background:var(--bg);color:var(--ink);font-family:"Zen Kaku Gothic New",system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;line-height:1.8;font-size:16px;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:"Shippori Mincho","Hiragino Mincho ProN",serif;font-weight:700;letter-spacing:.02em;line-height:1.35;margin:0}
-p{margin:0}
-a{color:inherit}
-img{max-width:100%;display:block}
-.wrap{width:min(1080px,92%);margin:0 auto}
-.sec{padding:72px 0}
-.eyebrow{display:inline-block;font-size:12px;letter-spacing:.28em;color:var(--brand);font-weight:700;margin-bottom:12px}
-.h2{font-size:clamp(26px,4vw,38px)}
-.lead{color:var(--muted);margin-top:14px;max-width:38em}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);overflow-x:hidden;
+  font-family:"Zen Kaku Gothic New",system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;
+  font-size:clamp(14.5px,1.02vw,16px);line-height:1.95;letter-spacing:.02em;
+  -webkit-font-smoothing:antialiased;font-feature-settings:"palt" 1}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration:none}
+li{list-style:none}
+::selection{background:var(--ink);color:#fff}
+.wrap{width:100%;max-width:1320px;margin-inline:auto;padding-inline:var(--gut)}
+.mid{max-width:1000px}
+.tight{max-width:760px}
 
-/* header */
-.hd{position:sticky;top:0;z-index:20;background:rgba(247,242,234,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.hd .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo{font-family:"Shippori Mincho",serif;font-weight:700;font-size:18px;letter-spacing:.06em;text-decoration:none}
-.logo small{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-weight:500;font-size:10px;letter-spacing:.2em;color:var(--muted)}
-.nav{display:none;gap:26px;font-size:14px}
-.nav a{text-decoration:none;color:var(--muted)}
-.nav a:hover{color:var(--ink)}
-.hd .cta{display:none}
-@media(min-width:840px){.nav{display:flex}.hd .cta{display:inline-flex}}
+/* ===== 署名の動き：写真は左から右へ開く（製図の線） ===== */
+.rv{clip-path:inset(0 100% 0 0);transition:clip-path var(--s) var(--ease)}
+.rv.in{clip-path:inset(0 0 0 0)}
+.t{opacity:0;transform:translateY(8px);transition:opacity var(--f) var(--ease),transform var(--f) var(--ease)}
+.t.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .rv,.t{transition:none!important;transform:none!important;clip-path:none!important;opacity:1!important}
+}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:999px;text-decoration:none;font-weight:700;font-size:15px;border:2px solid transparent;transition:.2s}
-.btn-brand{background:var(--brand);color:#fff}
-.btn-brand:hover{background:var(--brand-d)}
-.btn-line{background:#06C755;color:#fff}
-.btn-line:hover{filter:brightness(.93)}
-.btn-ghost{border-color:var(--ink);color:var(--ink);background:transparent}
-.btn-ghost:hover{background:var(--ink);color:#fff}
-.btn svg{width:18px;height:18px}
+/* ===== header ===== */
+header{position:fixed;inset:0 0 auto;z-index:50;transition:background var(--f),box-shadow var(--f)}
+header::before{content:"";position:absolute;inset:0;background:linear-gradient(#0a0a08a6,transparent);transition:opacity var(--f)}
+header.on{background:#fffffff2;backdrop-filter:blur(12px);box-shadow:inset 0 -1px 0 var(--rule)}
+header.on::before{opacity:0}
+.hb{position:relative;display:flex;align-items:center;justify-content:space-between;gap:14px;height:74px}
+.logo{display:flex;align-items:center;gap:11px;color:#fff;transition:color var(--f)}
+header.on .logo{color:var(--ink)}
+.logo svg{width:26px;height:26px;flex:none}
+.logo b{font-size:clamp(15px,4vw,17px);font-weight:700;letter-spacing:.14em;white-space:nowrap}
+.logo i{font-style:normal;font-size:9px;letter-spacing:.26em;opacity:.7;white-space:nowrap;display:none}
+@media(min-width:640px){.logo i{display:inline}}
+nav{display:none;gap:28px;font-size:13px;letter-spacing:.06em}
+nav a{color:#fff;opacity:.86;transition:opacity var(--f),color var(--f)}
+header.on nav a{color:var(--ink);opacity:.62}
+nav a:hover{opacity:1}
+.hb .hcta{display:none}
+@media(min-width:980px){nav{display:flex}.hb .hcta{display:inline-flex}}
 
-/* hero */
-.hero{position:relative;overflow:hidden;padding:64px 0 56px}
-.hero .wrap{display:grid;gap:36px;align-items:center}
-@media(min-width:840px){.hero{padding:96px 0 88px}.hero .wrap{grid-template-columns:1.15fr .85fr}.art{aspect-ratio:4/5}}
-.hero h1{font-size:clamp(28px,7.4vw,50px);overflow-wrap:anywhere}
-.hero .wrap>*{min-width:0}
-.hero h1 em{font-style:normal;color:var(--brand)}
-.hero .lead{font-size:17px}
-.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
-.hero .meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:22px;font-size:13px;color:var(--muted)}
-.hero .meta b{color:var(--ink)}
-.art{position:relative;aspect-ratio:4/3;border-radius:28px;background:
-  radial-gradient(120% 80% at 20% 10%,#f3d9c4 0,transparent 60%),
-  radial-gradient(80% 60% at 90% 90%,#cfd8c4 0,transparent 60%),
-  linear-gradient(160deg,#f9ede1,#e9d6c3);box-shadow:var(--shadow);overflow:hidden}
-.art::before{content:"";position:absolute;inset:0;background:
-  repeating-linear-gradient(135deg,rgba(255,255,255,.35) 0 2px,transparent 2px 14px);mix-blend-mode:soft-light}
-.art .word{position:absolute;left:24px;bottom:22px;font-family:"Shippori Mincho",serif;font-size:clamp(28px,4.4vw,44px);line-height:1.2;color:var(--brand-d)}
-.art .word small{display:block;font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;letter-spacing:.25em;color:var(--muted);margin-top:8px}
-.art .ring{position:absolute;right:-40px;top:-40px;width:220px;height:220px;border-radius:50%;border:26px solid rgba(184,100,60,.16)}
-.art .ring2{position:absolute;left:-60px;top:36%;width:180px;height:180px;border-radius:50%;background:rgba(138,154,123,.22)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 26px;
+  font-size:13.5px;font-weight:700;letter-spacing:.08em;border:1px solid transparent;
+  transition:background var(--f) var(--ease),color var(--f) var(--ease),border-color var(--f)}
+.btn svg{width:16px;height:16px;flex:none}
+.b-ink{background:var(--ink);color:#fff}.b-ink:hover{background:#000}
+.b-line{background:#06C755;color:#fff}.b-line:hover{background:#05a948}
+.b-w{border-color:#ffffff8c;color:#fff}.b-w:hover{background:#fff;color:var(--ink);border-color:#fff}
+.b-o{border-color:var(--rule);color:var(--ink)}.b-o:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
 
-/* worries */
-.grid{display:grid;gap:16px}
-@media(min-width:640px){.grid-2{grid-template-columns:1fr 1fr}.grid-3{grid-template-columns:repeat(3,1fr)}}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;box-shadow:var(--shadow)}
-.card h3{font-size:19px;margin-bottom:8px}
-.card .q{font-size:13px;color:var(--brand);font-weight:700;letter-spacing:.1em;margin-bottom:6px}
-.card .a{color:var(--muted);font-size:15px}
-.card .tag{display:inline-block;margin-top:14px;padding:6px 12px;border-radius:999px;background:#f3e7da;color:var(--brand-d);font-size:12px;font-weight:700}
+/* ===== hero ===== */
+.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
+.hero .ph{position:absolute;inset:0}
+.hero img{width:100%;height:100%;object-fit:cover}
+.hero .ph::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,#0a0a08a6 0,#0a0a081a 30%,#0a0a0880 66%,#0a0a08ed 100%),
+             linear-gradient(78deg,#0a0a08c4 0,#0a0a084d 44%,#0a0a0800 76%)}
+.hero .wrap{position:relative;z-index:2;color:#fff;padding-bottom:clamp(38px,8vh,88px)}
+.hero .kicker{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.22em;color:#ffffffcc;margin-bottom:22px}
+.hero .kicker::before{content:"";width:36px;height:1px;background:#ffffff80;flex:none}
+.hero h1{font-size:clamp(31px,7vw,78px);font-weight:900;line-height:1.24;letter-spacing:.03em}
+.hero h1 span{display:block}
+.hero p{margin-top:20px;max-width:31em;font-size:clamp(13.5px,1.5vw,16px);color:#ffffffd6;line-height:2.05}
+.hero .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+@media(max-width:520px){.hero .acts .btn{flex:1 1 100%;padding:15px 12px}}
+.spec{display:grid;grid-template-columns:repeat(2,1fr);gap:0 26px;margin-top:38px;border-top:1px solid #ffffff2e}
+@media(min-width:760px){.spec{grid-template-columns:repeat(4,1fr)}}
+.spec div{padding:18px 0 4px}
+.spec b{display:block;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(23px,3vw,34px);letter-spacing:.02em;line-height:1.1}
+.spec b em{font-style:normal;font-size:.44em;margin-left:.28em;letter-spacing:.1em}
+.spec span{display:block;margin-top:7px;font-size:10.5px;letter-spacing:.16em;color:#ffffffb0}
 
-/* price */
-.price{background:var(--paper);border-radius:var(--r);border:1px solid var(--line);overflow:hidden;box-shadow:var(--shadow)}
-.price .row{display:grid;grid-template-columns:1fr auto;gap:10px;padding:18px 22px;border-top:1px solid var(--line);align-items:baseline}
-.price .row:first-child{border-top:0}
-.price .row .n{font-weight:700}
-.price .row .d{display:block;font-size:13px;color:var(--muted);font-weight:400}
-.price .row .p{font-family:"Shippori Mincho",serif;font-size:20px;white-space:nowrap}
-.price .row .p small{font-size:12px;color:var(--muted);font-family:"Zen Kaku Gothic New",sans-serif}
-.note{font-size:13px;color:var(--muted);margin-top:14px}
+/* ===== section ===== */
+section{padding:clamp(66px,9vw,150px) 0}
+.head{display:grid;gap:16px}
+.eye{display:flex;align-items:center;gap:13px;font-size:10.5px;letter-spacing:.3em;color:var(--sub);
+  font-family:Archivo,sans-serif;font-weight:500}
+.eye::before{content:"";width:26px;height:1px;background:var(--wood);flex:none}
+h2{font-size:clamp(23px,3.4vw,42px);font-weight:900;letter-spacing:.045em;line-height:1.45}
+.lead{color:var(--sub);max-width:36em;font-size:clamp(13.5px,1.08vw,15.5px)}
 
-/* about */
-.about{display:grid;gap:28px;align-items:center}
-@media(min-width:840px){.about{grid-template-columns:.8fr 1.2fr}}
-.portrait{aspect-ratio:1/1;border-radius:50%;width:min(320px,80%);margin:0 auto;background:
-  radial-gradient(70% 70% at 30% 30%,#fbe9d8 0,#dcc3a8 100%);box-shadow:var(--shadow);position:relative}
-.portrait::after{content:"オーナー";position:absolute;inset:auto 0 22% 0;text-align:center;font-family:"Shippori Mincho",serif;color:var(--brand-d);letter-spacing:.3em;font-size:14px}
-.about ul{margin:16px 0 0;padding:0;list-style:none;display:grid;gap:8px;color:var(--muted);font-size:15px}
-.about li::before{content:"— ";color:var(--brand)}
+/* ===== cases ===== */
+.cases{display:grid;gap:clamp(52px,6vw,96px);margin-top:clamp(40px,5vw,72px)}
+.case{display:grid;gap:clamp(18px,2.6vw,44px)}
+@media(min-width:900px){
+  .case{grid-template-columns:1.35fr .65fr;align-items:start}
+  .case:nth-child(even){grid-template-columns:.65fr 1.35fr}
+  .case:nth-child(even) figure{order:2}
+}
+.case figure{overflow:hidden;background:var(--bg2)}
+.case figure img{width:100%}
+.cno{display:block;font-family:Archivo,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;color:var(--wood)}
+.case h3{margin-top:12px;font-size:clamp(18px,2vw,25px);font-weight:900;letter-spacing:.05em;line-height:1.55}
+.case>div>p{margin-top:12px;color:var(--sub);font-size:13.5px}
+.dl-spec{margin-top:20px;border-top:1px solid var(--rule)}
+.dl-spec div{display:grid;grid-template-columns:5.8em 1fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--rule-2);font-size:12.5px}
+.dl-spec dt{color:var(--sub);letter-spacing:.1em}
+.dl-spec dd{letter-spacing:.03em}
 
-/* flow */
-.steps{counter-reset:s;display:grid;gap:14px}
-@media(min-width:640px){.steps{grid-template-columns:repeat(3,1fr)}}
-.step{counter-increment:s;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px}
-.step::before{content:counter(s,decimal-leading-zero);font-family:"Shippori Mincho",serif;font-size:28px;color:var(--brand);display:block;margin-bottom:6px}
-.step h3{font-size:17px;margin-bottom:6px}
-.step p{font-size:14px;color:var(--muted)}
+/* ===== belief ===== */
+.belief{background:var(--bg2)}
+.bgrid{display:grid;gap:clamp(28px,3.4vw,44px);margin-top:clamp(38px,4.6vw,64px)}
+@media(min-width:860px){.bgrid{grid-template-columns:repeat(3,1fr)}}
+.bcard figure{overflow:hidden;background:#e6e2da;margin-bottom:20px}
+.bcard .n{display:block;font-family:Archivo,sans-serif;font-weight:600;font-size:11px;letter-spacing:.2em;color:var(--wood)}
+.bcard h3{margin-top:9px;font-size:clamp(16.5px,1.7vw,20px);font-weight:900;letter-spacing:.05em;line-height:1.6}
+.bcard p{margin-top:11px;color:var(--sub);font-size:13.5px}
 
-/* info */
-.info{display:grid;gap:18px}
-@media(min-width:840px){.info{grid-template-columns:1fr 1fr}}
-.map{aspect-ratio:16/11;border-radius:var(--r);background:
-  linear-gradient(#e9e2d6 1px,transparent 1px) 0 0/28px 28px,
-  linear-gradient(90deg,#e9e2d6 1px,transparent 1px) 0 0/28px 28px,#f2ece2;position:relative;border:1px solid var(--line);overflow:hidden}
-.map .pin{position:absolute;left:48%;top:44%;width:18px;height:18px;border-radius:50%;background:var(--brand);box-shadow:0 0 0 10px rgba(184,100,60,.18)}
-.map .lbl{position:absolute;left:50%;top:52%;transform:translateX(-50%);font-size:12px;background:#fff;padding:4px 10px;border-radius:8px;border:1px solid var(--line);white-space:nowrap}
-.map .road{position:absolute;left:0;right:0;top:30%;height:14px;background:#e3d9c9}
-.map .road2{position:absolute;top:0;bottom:0;left:62%;width:14px;background:#e3d9c9}
-.dl{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;font-size:15px}
-.dl dt{color:var(--muted);font-weight:500}
-.dl dd{margin:0}
+/* ===== steps ===== */
+.steps{margin-top:clamp(36px,4.6vw,64px);border-top:1px solid var(--rule)}
+.step{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:clamp(18px,2.2vw,26px) 0;border-bottom:1px solid var(--rule)}
+@media(min-width:760px){.step{grid-template-columns:5.8em 15em 1fr;align-items:baseline}}
+.step .sn{font-family:Archivo,sans-serif;font-weight:600;font-size:12px;letter-spacing:.2em;color:var(--wood)}
+.step h3{font-size:clamp(15.5px,1.5vw,18px);font-weight:700;letter-spacing:.05em}
+.step p{color:var(--sub);font-size:13.5px;grid-column:1/-1}
+@media(min-width:760px){.step p{grid-column:3}}
 
-/* news */
-.news{display:grid;gap:10px}
-.news a{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:16px 18px;background:var(--paper);border:1px solid var(--line);border-radius:14px;text-decoration:none}
-.news time{color:var(--muted);font-size:13px}
+/* ===== cost ===== */
+.cost{border-top:1px solid var(--rule);margin-top:clamp(34px,4.4vw,58px)}
+.cost li{display:grid;grid-template-columns:1fr auto;gap:6px 20px;align-items:baseline;
+  padding:clamp(17px,2.1vw,24px) 0;border-bottom:1px solid var(--rule)}
+.cost .n{font-weight:700;letter-spacing:.05em;font-size:clamp(14.5px,1.2vw,16.5px)}
+.cost .d{display:block;margin-top:5px;font-size:12.5px;color:var(--sub);font-weight:400}
+.cost .v{font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(16px,1.7vw,21px);white-space:nowrap}
+.cost .v em{font-style:normal;font-size:.6em;color:var(--sub);margin-left:3px;letter-spacing:.08em}
+.note{margin-top:20px;font-size:12.5px;color:var(--sub)}
 
-/* cta band */
-.band{background:var(--ink);color:#fff;border-radius:28px;padding:44px 28px;text-align:center}
-.band h2{font-size:clamp(24px,3.6vw,34px)}
-.band p{color:#cfc9bf;margin-top:10px}
-.band .acts{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:24px}
-.band .btn-ghost{border-color:#fff;color:#fff}
-.band .btn-ghost:hover{background:#fff;color:var(--ink)}
+/* ===== qa ===== */
+.qa{margin-top:clamp(32px,4vw,54px);border-top:1px solid var(--rule)}
+.qa details{border-bottom:1px solid var(--rule)}
+.qa summary{list-style:none;cursor:pointer;position:relative;padding:clamp(17px,2vw,23px) 42px clamp(17px,2vw,23px) 0;
+  font-size:14.5px;font-weight:500;letter-spacing:.04em}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:1px;background:var(--ink)}
+.qa summary::before{content:"";position:absolute;right:11px;top:50%;width:1px;height:12px;background:var(--ink);
+  transform:translateY(-50%);transition:transform var(--f) var(--ease)}
+.qa details[open] summary::before{transform:translateY(-50%) scaleY(0)}
+.qa .a{padding:0 0 24px;color:var(--sub);font-size:13.5px;max-width:48em}
 
-/* footer */
-.ft{padding:40px 0 110px;font-size:13px;color:var(--muted)}
-.ft .sample{margin-top:14px;padding:12px 14px;border:1px dashed var(--line);border-radius:12px;background:#fbf7f1}
-@media(min-width:840px){.ft{padding-bottom:40px}}
+/* ===== company ===== */
+.co{display:grid;gap:clamp(28px,4vw,64px)}
+@media(min-width:900px){.co{grid-template-columns:1fr 1fr;align-items:center}}
+.co figure{overflow:hidden;background:var(--bg2)}
+.dl2{border-top:1px solid var(--rule);margin-top:28px}
+.dl2 div{display:grid;grid-template-columns:6.4em 1fr;gap:6px 18px;padding:14px 0;border-bottom:1px solid var(--rule);align-items:baseline}
+.dl2 dt{font-size:11.5px;letter-spacing:.16em;color:var(--sub)}
+.dl2 dd{font-size:14px}
+@media(max-width:520px){.dl2 div{grid-template-columns:1fr}}
 
-/* mobile sticky bar */
-.bar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(255,253,249,.94);backdrop-filter:blur(10px);border-top:1px solid var(--line)}
-.bar .btn{padding:13px 10px;font-size:14px}
-@media(min-width:840px){.bar{display:none}}
+/* ===== band ===== */
+.band{position:relative;overflow:hidden;color:#fff;isolation:isolate}
+.band .ph{position:absolute;inset:0;z-index:-1}
+.band .ph img{width:100%;height:100%;object-fit:cover}
+.band .ph::after{content:"";position:absolute;inset:0;background:#0a0a08cf}
+.band .head{justify-items:center;text-align:center}
+.band .eye{color:#ffffffa8}
+.band .eye::before{background:#ffffff66}
+.band .lead{color:#ffffffc7;margin-inline:auto;text-align:center}
+.band .acts{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:34px}
+
+/* ===== footer ===== */
+footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom));font-size:12.5px;color:var(--sub);
+  border-top:1px solid var(--rule)}
+@media(min-width:980px){footer{padding-bottom:clamp(46px,5.5vw,70px)}}
+.fb{display:flex;align-items:center;gap:11px;color:var(--ink)}
+.fb svg{width:24px;height:24px}
+.fb b{font-size:16px;font-weight:700;letter-spacing:.14em}
+.sample{margin-top:24px;padding:17px 19px;border:1px solid var(--rule);background:var(--bg2);line-height:1.9}
+.sample b{color:var(--ink)}
+
+/* ===== mobile bar ===== */
+.bar{position:fixed;inset:auto 0 0;z-index:55;display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fffffff2;backdrop-filter:blur(12px);
+  box-shadow:inset 0 1px 0 var(--rule);transform:translateY(102%);transition:transform var(--f) var(--ease)}
+.bar.on{transform:none}
+.bar .btn{padding:14px 6px;font-size:13px}
+@media(min-width:980px){.bar{display:none}}
 </style>
 </head>
 <body>
 
-<header class="hd">
-  <div class="wrap">
-    <a class="logo" href="#top">hair room ルーチェ<small>KUMAMOTO / KAMITORI</small></a>
-    <nav class="nav">
-      <a href="#worry">悩みから選ぶ</a>
-      <a href="#price">料金</a>
-      <a href="#about">お店について</a>
-      <a href="#access">アクセス</a>
-      <a href="#news">お知らせ</a>
+<header id="hd">
+  <div class="wrap hb">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 21 16 10l12 11" stroke="currentColor" stroke-width="1.6"/><path d="M8 21v7h16v-7" stroke="currentColor" stroke-width="1.6"/></svg>
+      <b>木戸建築設計</b><i>KIDO / KUMAMOTO</i>
+    </a>
+    <nav>
+      <a href="#works">施工事例</a>
+      <a href="#belief">家づくりの考え</a>
+      <a href="#flow">建つまで</a>
+      <a href="#cost">費用の目安</a>
+      <a href="#company">会社概要</a>
     </nav>
-    <a class="btn btn-line cta" href="#reserve">LINEで予約</a>
+    <a class="btn b-ink hcta" href="#contact">無料相談を申し込む</a>
   </div>
 </header>
 
 <main id="top">
 
 <section class="hero">
+  <div class="ph">
+    <img src="img/hero.jpg" srcset="img/hero@s.jpg 880w, img/hero.jpg 2400w" sizes="100vw"
+         width="2400" height="1350" alt="木の壁と大きな開口のあるリビング" fetchpriority="high">
+  </div>
   <div class="wrap">
+    <div class="kicker t">熊本市・阿蘇・菊池／注文住宅とリノベーション</div>
+    <h1 class="t"><span>木の見える家を、</span><span>熊本で。</span></h1>
+    <p class="t">土地も予算も決まっていない段階から相談できます。図面の前に、朝どこで陽を浴びたいか、洗濯物をどこに干すか。暮らし方の話から始めます。</p>
+    <div class="acts t">
+      <a class="btn b-ink" href="#contact">無料の家づくり相談</a>
+      <a class="btn b-w" href="#works">施工事例を見る</a>
+    </div>
+    <div class="spec">
+      <div class="t"><b>1998<em>年</em></b><span>創業</span></div>
+      <div class="t"><b>214<em>棟</em></b><span>これまでの施工</span></div>
+      <div class="t"><b>35<em>年</em></b><span>構造・防水の保証</span></div>
+      <div class="t"><b>10<em>年</em></b><span>引き渡し後の無料点検</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="works">
+  <div class="wrap">
+    <div class="head">
+      <span class="eye t">WORKS</span>
+      <h2 class="t">建てた家を、<br>数字ごと載せています。</h2>
+      <p class="lead t">面積・構造・工期・本体価格まで出しています。ご自分の計画と比べられるようにするためです。</p>
+    </div>
+
+    <div class="cases">
+      <article class="case">
+        <figure class="rv"><img src="img/c1@s.jpg" srcset="img/c1@s.jpg 880w, img/c1.jpg 1899w" sizes="(min-width:900px) 62vw, 100vw" width="1899" height="1266" alt="大きな窓から光が入る、木を使ったリビング" loading="lazy"></figure>
+        <div>
+          <span class="cno t">CASE 01</span>
+          <h3 class="t">阿蘇の、朝日で起きる家</h3>
+          <p class="t">東側に大きく開口を取り、寝室からリビングまで朝の光が抜けるようにしました。冬の冷え込みが強い土地なので、断熱を等級6まで上げています。</p>
+          <dl class="dl-spec t">
+            <div><dt>所在地</dt><dd>阿蘇郡</dd></div>
+            <div><dt>延床面積</dt><dd>112.6㎡（34.1坪）</dd></div>
+            <div><dt>構造</dt><dd>木造軸組・平屋</dd></div>
+            <div><dt>工期</dt><dd>5.5か月</dd></div>
+            <div><dt>本体価格</dt><dd>2,480万円（税別）</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case">
+        <figure class="rv"><img src="img/c2@s.jpg" srcset="img/c2@s.jpg 880w, img/c2.jpg 2400w" sizes="(min-width:900px) 62vw, 100vw" width="2400" height="1600" alt="キッチンとつながる、木を使った広いリビング" loading="lazy"></figure>
+        <div>
+          <span class="cno t">CASE 02</span>
+          <h3 class="t">台所に、人が集まる家</h3>
+          <p class="t">「料理をしながら家族の顔が見えるように」というご要望から、キッチンを家の中心に置きました。ダイニングとの段差をなくし、来客時も動線がぶつかりません。</p>
+          <dl class="dl-spec t">
+            <div><dt>所在地</dt><dd>熊本市東区</dd></div>
+            <div><dt>延床面積</dt><dd>98.4㎡（29.8坪）</dd></div>
+            <div><dt>構造</dt><dd>木造軸組・2階建</dd></div>
+            <div><dt>工期</dt><dd>6か月</dd></div>
+            <div><dt>本体価格</dt><dd>2,180万円（税別）</dd></div>
+          </dl>
+        </div>
+      </article>
+
+      <article class="case">
+        <figure class="rv"><img src="img/c3@s.jpg" srcset="img/c3@s.jpg 880w, img/c3.jpg 2400w" sizes="(min-width:900px) 62vw, 100vw" width="2400" height="1600" alt="無垢の床とやわらかい光のあるリビング" loading="lazy"></figure>
+        <div>
+          <span class="cno t">CASE 03</span>
+          <h3 class="t">築42年を、住み継ぐ</h3>
+          <p class="t">お父さまが建てられた家の柱と梁を残し、断熱と水まわりだけを入れ替えました。既存を活かすほうが安いとは限らないので、建て替えとの比較表をお出ししてから決めていただきました。</p>
+          <dl class="dl-spec t">
+            <div><dt>所在地</dt><dd>菊池市</dd></div>
+            <div><dt>延床面積</dt><dd>121.0㎡（36.6坪）</dd></div>
+            <div><dt>構造</dt><dd>木造・全面改修</dd></div>
+            <div><dt>工期</dt><dd>4か月</dd></div>
+            <div><dt>工事費</dt><dd>1,640万円（税別）</dd></div>
+          </dl>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="belief" id="belief">
+  <div class="wrap">
+    <div class="head">
+      <span class="eye t">OUR WORK</span>
+      <h2 class="t">3つだけ、決めています。</h2>
+    </div>
+    <div class="bgrid">
+      <div class="bcard">
+        <figure class="rv"><img src="img/d1@s.jpg" srcset="img/d1@s.jpg 880w, img/d1.jpg 1694w" sizes="(min-width:860px) 31vw, 100vw" width="1694" height="2118" alt="木の床と、静かな窓辺" loading="lazy"></figure>
+        <span class="n t">01</span>
+        <h3 class="t">図面より先に、<br>暮らしを聞きます</h3>
+        <p class="t">初回は間取りの話をしません。起きる時間、洗濯を干す場所、来客の頻度。それが決まると間取りはほぼ決まります。</p>
+      </div>
+      <div class="bcard">
+        <figure class="rv"><img src="img/d2@s.jpg" srcset="img/d2@s.jpg 880w, img/d2.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="造作のキッチンと、木の床" loading="lazy"></figure>
+        <span class="n t">02</span>
+        <h3 class="t">見積に、<br>一式と書きません</h3>
+        <p class="t">材料と手間を分けて出します。減らせるところとそうでないところを、ご自分で判断できる状態にしてから着工します。</p>
+      </div>
+      <div class="bcard">
+        <figure class="rv"><img src="img/d3@s.jpg" srcset="img/d3@s.jpg 880w, img/d3.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="大きな窓のあるリビング" loading="lazy"></figure>
+        <span class="n t">03</span>
+        <h3 class="t">引き渡してから、<br>10年通います</h3>
+        <p class="t">半年・1年・2年・5年・10年に点検にうかがいます。木は動くものなので、建てて終わりにはできません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap mid">
+    <div class="head">
+      <span class="eye t">FLOW</span>
+      <h2 class="t">相談から引き渡しまで、<br>およそ12か月。</h2>
+      <p class="lead t">どの段階でやめても費用はかかりません。ご契約は4番目の実施設計からです。</p>
+    </div>
+    <div class="steps">
+      <div class="step"><span class="sn t">STEP 01</span><h3 class="t">無料相談（60分）</h3><p class="t">土地も予算も未定で構いません。今の住まいの不満と、毎月いくらまでなら返せるかだけ持ってきてください。</p></div>
+      <div class="step"><span class="sn t">STEP 02</span><h3 class="t">資金計画・土地さがし</h3><p class="t">借入可能額ではなく、無理なく返せる額から総額を逆算します。土地は提携の不動産会社と一緒に探します。</p></div>
+      <div class="step"><span class="sn t">STEP 03</span><h3 class="t">プランと概算見積</h3><p class="t">平面図と、材料・手間を分けた概算をお出しします。ここまで無料です。</p></div>
+      <div class="step"><span class="sn t">STEP 04</span><h3 class="t">実施設計（ご契約）</h3><p class="t">詳細図面と仕様を確定します。設計料は本体価格の8%、着工時に建築費へ充当します。</p></div>
+      <div class="step"><span class="sn t">STEP 05</span><h3 class="t">着工・上棟・現場確認</h3><p class="t">工事中はいつでも現場に入っていただけます。週に1回、写真と進捗をLINEでお送りします。</p></div>
+      <div class="step"><span class="sn t">STEP 06</span><h3 class="t">引き渡し・10年の点検</h3><p class="t">半年・1年・2年・5年・10年に点検にうかがいます。点検費用はいただきません。</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="cost" style="padding-top:0">
+  <div class="wrap mid">
+    <div class="head">
+      <span class="eye t">COST</span>
+      <h2 class="t">費用の目安</h2>
+      <p class="lead t">建物本体のみの目安です。土地・外構・地盤改良・登記・火災保険は別途かかります。総額は初回相談でお出しします。</p>
+    </div>
+    <ul class="cost">
+      <li class="t"><span class="n">注文住宅（新築）<span class="d">木造軸組・断熱等級6・造作キッチン込み</span></span><span class="v">78<em>万円/坪〜</em></span></li>
+      <li class="t"><span class="n">平屋<span class="d">基礎と屋根の面積が増えるため、坪単価は上がります</span></span><span class="v">85<em>万円/坪〜</em></span></li>
+      <li class="t"><span class="n">全面リノベーション<span class="d">構造補強・断熱・水まわりの入れ替え</span></span><span class="v">48<em>万円/坪〜</em></span></li>
+      <li class="t"><span class="n">部分リフォーム<span class="d">水まわり1か所から承ります</span></span><span class="v">45<em>万円〜</em></span></li>
+      <li class="t"><span class="n">実施設計料<span class="d">着工時に建築費へ充当します</span></span><span class="v">本体の8<em>%</em></span></li>
+    </ul>
+    <p class="note t">総額の考え方：本体価格 ＋ 付帯工事（本体の15〜20%）＋ 諸費用（同 6〜8%）。初回相談で、ご希望の条件に当てはめた実額をお出しします。</p>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap mid">
+    <div class="head">
+      <span class="eye t">Q &amp; A</span>
+      <h2 class="t">よくいただく質問</h2>
+    </div>
+    <div class="qa">
+      <details class="t"><summary>土地がまだ決まっていません。相談できますか。</summary><div class="a">その段階のご相談が一番多いです。先に土地を買ってしまうと建てられる家が制限されるので、建てたい家の条件を決めてから土地を探すほうが、結果的に総額は下がります。提携の不動産会社と一緒にお探しします。</div></details>
+      <details class="t"><summary>予算がいくら必要か分かりません。</summary><div class="a">借入可能額ではなく、毎月いくらまでなら無理なく返せるかから逆算します。ご希望をうかがったうえで、本体・付帯・諸費用まで含めた総額の目安を初回の60分でお出しします。</div></details>
+      <details class="t"><summary>建て替えとリノベーション、どちらが安いですか。</summary><div class="a">建物の状態によります。基礎と土台に傷みがある場合は、リノベーションのほうが高くつくことがあります。現地を見たうえで、両方の概算を並べた比較表をお出しします。</div></details>
+      <details class="t"><summary>工事中に、間取りを変えられますか。</summary><div class="a">着工後の変更は費用と工期に影響します。上棟までであれば対応できる範囲が広いので、迷っている箇所は実施設計の段階でお知らせください。変更が生じる場合は、必ず金額をお出ししてから着手します。</div></details>
+      <details class="t"><summary>対応できる地域はどこまでですか。</summary><div class="a">熊本市・阿蘇市・菊池市・合志市・大津町を中心に、車で1時間以内の範囲でお受けしています。引き渡し後の点検にうかがえる距離を基準にしています。</div></details>
+    </div>
+  </div>
+</section>
+
+<section id="company" class="belief">
+  <div class="wrap co">
+    <figure class="rv"><img src="img/co@s.jpg" srcset="img/co@s.jpg 880w, img/co.jpg 2136w" sizes="(min-width:900px) 46vw, 100vw" width="2136" height="1602" alt="事務所の打ち合わせスペース" loading="lazy"></figure>
     <div>
-      <span class="eyebrow">熊本・上通アーケードから徒歩3分</span>
-      <h1>髪の悩みは、<br><em>言葉にできなくて</em>いい。</h1>
-      <p class="lead">「なんとなく決まらない」「まとまらない」。その感じのまま来てください。1席だけの小さな美容室で、オーナーが最初から最後まで担当します。</p>
-      <div class="acts">
-        <a class="btn btn-line" href="#reserve"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.6 1.6 4.9 4 6.4-.1.6-.5 2.1-.6 2.4 0 .3.2.4.4.3.3-.1 3.1-2 4.3-2.8.6.1 1.2.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>LINEで予約する</a>
-        <a class="btn btn-ghost" href="tel:0960000000">電話で予約</a>
+      <div class="head">
+        <span class="eye t">COMPANY</span>
+        <h2 class="t">会社概要</h2>
       </div>
-      <div class="meta">
-        <span><b>10:00–19:00</b>　月曜定休</span>
-        <span><b>完全予約制</b>　1席・オーナー担当</span>
-        <span><b>初回</b>　カウンセリング無料</span>
-      </div>
-    </div>
-    <div class="art" aria-hidden="true">
-      <span class="ring"></span><span class="ring2"></span>
-      <div class="word">似合う、が<br>先にある。<small>HAIR ROOM LUCE</small></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="worry">
-  <div class="wrap">
-    <span class="eyebrow">MENU BY WORRY</span>
-    <h2 class="h2">悩みから、選べます。</h2>
-    <p class="lead">メニュー名が分からなくても大丈夫。近いものを選んで、あとは当日相談してください。</p>
-    <div class="grid grid-3" style="margin-top:28px">
-      <div class="card">
-        <div class="q">朝、まとまらない</div>
-        <h3>髪質改善トリートメント</h3>
-        <p class="a">うねり・広がりを内側から落ち着かせます。乾かすだけでまとまる状態を目指します。</p>
-        <span class="tag">所要 約90分</span>
-      </div>
-      <div class="card">
-        <div class="q">白髪が気になってきた</div>
-        <h3>やわらかグレイカラー</h3>
-        <p class="a">「染めました」感の出ない、明るめの白髪染め。伸びてきても目立ちにくい塗り方をします。</p>
-        <span class="tag">所要 約100分</span>
-      </div>
-      <div class="card">
-        <div class="q">なんとなく変えたい</div>
-        <h3>おまかせカット</h3>
-        <p class="a">今の髪の癖と生活を聞いてから提案します。「切りすぎない」を約束します。</p>
-        <span class="tag">所要 約60分</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="price" style="padding-top:0">
-  <div class="wrap">
-    <span class="eyebrow">PRICE</span>
-    <h2 class="h2">料金</h2>
-    <p class="lead">表示はすべて税込。シャンプー・ブロー込みです。</p>
-    <div class="price" style="margin-top:24px">
-      <div class="row"><div class="n">カット<span class="d">カウンセリング・シャンプー・ブロー込み</span></div><div class="p">¥5,500</div></div>
-      <div class="row"><div class="n">カット＋カラー<span class="d">根元のみは ¥8,800</span></div><div class="p">¥12,100<small>〜</small></div></div>
-      <div class="row"><div class="n">髪質改善トリートメント<span class="d">カットとの組み合わせがおすすめ</span></div><div class="p">¥9,900</div></div>
-      <div class="row"><div class="n">やわらかグレイカラー<span class="d">カット込み</span></div><div class="p">¥13,200</div></div>
-      <div class="row"><div class="n">前髪カット<span class="d">ご来店後2ヶ月以内の方は無料</span></div><div class="p">¥1,100</div></div>
-    </div>
-    <p class="note">※ 髪の長さ・量によって変わる場合は、施術前に必ずお伝えします。</p>
-  </div>
-</section>
-
-<section class="sec" id="about" style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
-  <div class="wrap about">
-    <div class="portrait" aria-hidden="true"></div>
-    <div>
-      <span class="eyebrow">ABOUT</span>
-      <h2 class="h2">1席だけの、小さな美容室です。</h2>
-      <p class="lead">熊本市内のサロンで12年勤めたあと、2024年に上通の路地裏に開きました。担当が変わることはありません。前回の話の続きから、始められます。</p>
-      <ul>
-        <li>完全予約制・同時にお迎えするのは1名だけ</li>
-        <li>お子さま連れ、ベビーカーのままでどうぞ</li>
-        <li>キャッシュレス対応（クレジット・PayPay・交通系IC）</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="flow">
-  <div class="wrap">
-    <span class="eyebrow">FLOW</span>
-    <h2 class="h2">はじめての方へ</h2>
-    <div class="steps" style="margin-top:24px">
-      <div class="step"><h3>LINEか電話で予約</h3><p>「カットで」「相談から」だけで大丈夫。希望日時を2つほど送ってください。</p></div>
-      <div class="step"><h3>10分のカウンセリング</h3><p>普段の乾かし方、困っていること、やりたくないことを聞きます。</p></div>
-      <div class="step"><h3>施術・お会計</h3><p>次回の目安時期をお伝えします。無理な予約のお願いはしません。</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="sec" id="access" style="padding-top:0">
-  <div class="wrap">
-    <span class="eyebrow">ACCESS</span>
-    <h2 class="h2">アクセス</h2>
-    <div class="info" style="margin-top:24px">
-      <div class="map" aria-label="地図（サンプル）">
-        <span class="road"></span><span class="road2"></span>
-        <span class="pin"></span><span class="lbl">hair room ルーチェ</span>
-      </div>
-      <dl class="dl">
-        <dt>住所</dt><dd>熊本県熊本市中央区上通町 0-0 サンプルビル 2F</dd>
-        <dt>最寄り</dt><dd>市電「通町筋」電停から徒歩4分／上通アーケードから徒歩3分</dd>
-        <dt>営業時間</dt><dd>10:00–19:00（最終受付 18:00）</dd>
-        <dt>定休日</dt><dd>月曜・第3火曜</dd>
-        <dt>電話</dt><dd><a href="tel:0960000000">096-000-0000</a></dd>
-        <dt>駐車場</dt><dd>近隣コインパーキングをご利用ください（30分無料券あり）</dd>
+      <dl class="dl2">
+        <div class="t"><dt>会社名</dt><dd>株式会社 木戸建築設計</dd></div>
+        <div class="t"><dt>所在地</dt><dd>熊本県熊本市中央区サンプル町 0-0</dd></div>
+        <div class="t"><dt>創業</dt><dd>1998年4月</dd></div>
+        <div class="t"><dt>代表</dt><dd>木戸 隆一（一級建築士 第00000号）</dd></div>
+        <div class="t"><dt>建設業許可</dt><dd>熊本県知事許可（般-0）第00000号</dd></div>
+        <div class="t"><dt>営業時間</dt><dd>9:00 – 18:00（日曜・祝日休）</dd></div>
+        <div class="t"><dt>電話</dt><dd><a href="tel:0960000000" style="border-bottom:1px solid var(--rule)">096-000-0000</a></dd></div>
+        <div class="t"><dt>対応地域</dt><dd>熊本市・阿蘇市・菊池市・合志市・大津町ほか</dd></div>
       </dl>
     </div>
   </div>
 </section>
 
-<section class="sec" id="news" style="padding-top:0">
-  <div class="wrap">
-    <span class="eyebrow">NEWS</span>
-    <h2 class="h2">お知らせ</h2>
-    <div class="news" style="margin-top:20px">
-      <a href="#"><time>2026.09.01</time><span>9月の定休日と、髪質改善トリートメントの新メニューについて</span></a>
-      <a href="#"><time>2026.08.10</time><span>お盆期間（8/13〜15）はお休みをいただきます</span></a>
-      <a href="#"><time>2026.07.20</time><span>LINE予約を始めました。24時間受け付けています</span></a>
+<section class="band" id="contact">
+  <div class="ph"><img src="img/band@s.jpg" srcset="img/band@s.jpg 880w, img/band.jpg 2400w" sizes="100vw" width="2400" height="1350" alt="" loading="lazy" aria-hidden="true"></div>
+  <div class="wrap tight">
+    <div class="head">
+      <span class="eye t">CONTACT</span>
+      <h2 class="t">「まだ何も決まっていない」<br>で、来てください。</h2>
+      <p class="lead t">60分の無料相談です。しつこい営業はしません。お断りのご連絡も不要です。現地を見てほしい、見積だけ比べたい、というご依頼にも対応します。</p>
     </div>
-  </div>
-</section>
-
-<section class="sec" id="reserve" style="padding-top:0">
-  <div class="wrap">
-    <div class="band">
-      <h2>予約は、LINEが一番はやいです。</h2>
-      <p>「相談から」でも大丈夫。24時間受け付け、返信は営業時間内にお送りします。</p>
-      <div class="acts">
-        <a class="btn btn-line" href="#">LINEで予約する</a>
-        <a class="btn btn-ghost" href="tel:0960000000">096-000-0000</a>
-      </div>
+    <div class="acts t">
+      <a class="btn" style="background:#fff;color:#121210" href="#">相談を申し込む</a>
+      <a class="btn b-line" href="#">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.6 1.6 4.9 4 6.4-.1.6-.5 2.1-.6 2.4 0 .3.2.4.4.3.3-.1 3.1-2 4.3-2.8.6.1 1.2.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
+        LINEで質問する</a>
+      <a class="btn b-w" href="tel:0960000000">096-000-0000</a>
     </div>
   </div>
 </section>
 
 </main>
 
-<footer class="ft">
+<footer>
   <div class="wrap">
-    <div>© hair room ルーチェ</div>
-    <div class="sample">※ このサイトは <strong>Web制作のサンプル</strong>です。「hair room ルーチェ」は架空の店舗で、住所・電話番号・料金はすべて仮のものです。<br>制作: シバ（熊本）— お店のHP・LP制作とAI自動化</div>
+    <div class="fb">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M4 21 16 10l12 11" stroke="currentColor" stroke-width="1.6"/><path d="M8 21v7h16v-7" stroke="currentColor" stroke-width="1.6"/></svg>
+      <b>木戸建築設計</b>
+    </div>
+    <p style="margin-top:12px">熊本県熊本市中央区サンプル町 0-0 ／ 9:00–18:00 ／ 日曜・祝日休</p>
+    <div class="sample">
+      <b>※ このページは Web制作のサンプルです。</b><br>
+      「株式会社 木戸建築設計」は実在しない架空の会社で、社名・人物・住所・電話番号・許可番号・施工事例・価格はすべて仮のものです。掲載写真は Unsplash のライセンス画像を使用しています。<br>
+      制作：シバ（熊本）— お店・会社のHP・LP制作と、公開後の更新・管理
+    </div>
   </div>
 </footer>
 
-<div class="bar">
-  <a class="btn btn-line" href="#reserve">LINEで予約</a>
-  <a class="btn btn-ghost" href="tel:0960000000">電話する</a>
+<div class="bar" id="bar">
+  <a class="btn b-ink" href="#contact">無料相談</a>
+  <a class="btn b-o" href="tel:0960000000">電話する</a>
 </div>
 
+<script>
+(function(){
+  var hd=document.getElementById('hd'),bar=document.getElementById('bar'),hero=document.querySelector('.hero');
+  if(!('IntersectionObserver' in window)){
+    document.querySelectorAll('.rv,.t').forEach(function(n){n.classList.add('in')});
+    bar.classList.add('on'); hd.classList.add('on'); return;
+  }
+  new IntersectionObserver(function(e){
+    var past=!e[0].isIntersecting;
+    hd.classList.toggle('on',past); bar.classList.toggle('on',past);
+  },{rootMargin:'-74px 0px 0px 0px'}).observe(hero);
+
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(!e.isIntersecting) return;
+      var el=e.target,p=el.parentElement,i=0;
+      if(p){var sib=[].slice.call(p.children).filter(function(n){return n.classList.contains('t')});i=Math.max(0,sib.indexOf(el));}
+      el.style.transitionDelay=Math.min(i,6)*60+'ms';
+      el.classList.add('in'); io.unobserve(el);
+    });
+  },{rootMargin:'0px 0px -10% 0px',threshold:.06});
+  document.querySelectorAll('.rv,.t').forEach(function(n){io.observe(n)});
+
+  requestAnimationFrame(function(){
+    document.querySelectorAll('.hero .t').forEach(function(n,i){
+      n.style.transitionDelay=(110+i*70)+'ms'; n.classList.add('in');
+    });
+  });
+})();
+</script>
 </body>
 </html>
