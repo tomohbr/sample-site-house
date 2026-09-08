@@ -10,20 +10,20 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="木戸建築設計｜熊本の工務店・注文住宅とリノベーション">
 <meta property="og:description" content="木の見える家を、熊本で。※制作サンプル">
-<meta property="og:image" content="img/hero.jpg">
+<meta property="og:image" content="img/r3.jpg">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23121210'/%3E%3Cpath d='M6 20 16 11l10 9' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/hero.jpg" imagesrcset="img/hero@s.jpg 880w, img/hero.jpg 2400w" imagesizes="100vw">
+<link rel="preload" as="image" href="img/r1.jpg" imagesrcset="img/r1@s.jpg 900w, img/r1.jpg 2400w" imagesizes="100vw">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#FFFFFF; --bg2:#F5F3EF; --ink:#121210; --sub:#6E6A62;
-  --rule:#DCD8D0; --rule-2:#EAE7E1;
-  --wood:#9A6C3C;
+  --rule:#DCD8D0; --rule-2:#EAE7E1; --wood:#9A6C3C;
   --ease:cubic-bezier(.16,1,.3,1);
-  --f:.28s; --s:.9s;
+  --f:.3s; --s:.9s;
   --gut:clamp(20px,4.6vw,72px);
+  --tour:6800ms;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
@@ -36,20 +36,29 @@ a{color:inherit;text-decoration:none}
 li{list-style:none}
 ::selection{background:var(--ink);color:#fff}
 .wrap{width:100%;max-width:1320px;margin-inline:auto;padding-inline:var(--gut)}
-.mid{max-width:1000px}
-.tight{max-width:760px}
+.mid{max-width:1000px}.tight{max-width:760px}
 
-/* ===== 署名の動き：写真は左から右へ開く（製図の線） ===== */
-.rv{clip-path:inset(0 100% 0 0);transition:clip-path var(--s) var(--ease)}
-.rv.in{clip-path:inset(0 0 0 0)}
+/* ===== 動きの語彙（全ページ共通・値は3つだけ） =====
+   1) 写真は「左から右へ開く」 .rv
+   2) 見出しは「行が下から上がる」 .m > i
+   3) その他は 8px 上へフェード .t                     */
+/* clip は必ず「監視対象の内側」に置く。要素自体を clip すると
+   Chrome の IntersectionObserver が非表示扱いにして発火しない */
+.rv>img,.rv>.px{clip-path:inset(0 100% 0 0);transition:clip-path var(--s) var(--ease)}
+.rv.in>img,.rv.in>.px{clip-path:inset(0 0 0 0)}
+.m{display:block;overflow:hidden}
+.m>i{display:block;font-style:normal;transform:translateY(105%);transition:transform var(--s) var(--ease)}
+.m.in>i{transform:none}
 .t{opacity:0;transform:translateY(8px);transition:opacity var(--f) var(--ease),transform var(--f) var(--ease)}
 .t.in{opacity:1;transform:none}
+.px{will-change:transform}
 @media (prefers-reduced-motion:reduce){
-  .rv,.t{transition:none!important;transform:none!important;clip-path:none!important;opacity:1!important}
+  .rv>img,.t,.m>i{transition:none!important;transform:none!important;clip-path:none!important;opacity:1!important}
+  .px{transform:none!important}
 }
 
 /* ===== header ===== */
-header{position:fixed;inset:0 0 auto;z-index:50;transition:background var(--f),box-shadow var(--f)}
+header{position:fixed;inset:0 0 auto;z-index:60;transition:background var(--f),box-shadow var(--f)}
 header::before{content:"";position:absolute;inset:0;background:linear-gradient(#0a0a08a6,transparent);transition:opacity var(--f)}
 header.on{background:#fffffff2;backdrop-filter:blur(12px);box-shadow:inset 0 -1px 0 var(--rule)}
 header.on::before{opacity:0}
@@ -61,69 +70,118 @@ header.on .logo{color:var(--ink)}
 .logo i{font-style:normal;font-size:9px;letter-spacing:.26em;opacity:.7;white-space:nowrap;display:none}
 @media(min-width:640px){.logo i{display:inline}}
 nav{display:none;gap:28px;font-size:13px;letter-spacing:.06em}
-nav a{color:#fff;opacity:.86;transition:opacity var(--f),color var(--f)}
+nav a{position:relative;color:#fff;opacity:.86;transition:opacity var(--f),color var(--f)}
 header.on nav a{color:var(--ink);opacity:.62}
-nav a:hover{opacity:1}
+nav a::after{content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:right;transition:transform var(--f) var(--ease)}
+nav a:hover{opacity:1}nav a:hover::after{transform:scaleX(1);transform-origin:left}
 .hb .hcta{display:none}
 @media(min-width:980px){nav{display:flex}.hb .hcta{display:inline-flex}}
 
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 26px;
-  font-size:13.5px;font-weight:700;letter-spacing:.08em;border:1px solid transparent;
-  transition:background var(--f) var(--ease),color var(--f) var(--ease),border-color var(--f)}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:15px 26px;
+  font-size:13.5px;font-weight:700;letter-spacing:.08em;border:1px solid transparent;overflow:hidden;
+  transition:color var(--f) var(--ease),border-color var(--f)}
+.btn>span{position:relative;z-index:1;display:inline-flex;align-items:center;gap:9px}
+.btn::before{content:"";position:absolute;inset:0;background:currentColor;opacity:0;
+  transform:translateY(100%);transition:transform var(--f) var(--ease),opacity var(--f)}
+.btn:hover::before{transform:none;opacity:.12}
 .btn svg{width:16px;height:16px;flex:none}
-.b-ink{background:var(--ink);color:#fff}.b-ink:hover{background:#000}
-.b-line{background:#06C755;color:#fff}.b-line:hover{background:#05a948}
-.b-w{border-color:#ffffff8c;color:#fff}.b-w:hover{background:#fff;color:var(--ink);border-color:#fff}
-.b-o{border-color:var(--rule);color:var(--ink)}.b-o:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.b-ink{background:var(--ink);color:#fff}
+.b-line{background:#06C755;color:#fff}
+.b-w{border-color:#ffffff8c;color:#fff}
+.b-w::before{background:#fff}
+.b-w:hover{color:var(--ink);border-color:#fff}
+.b-w:hover::before{opacity:1}
+.b-o{border-color:var(--rule);color:var(--ink)}
+.b-o::before{background:var(--ink)}
+.b-o:hover{color:#fff;border-color:var(--ink)}
+.b-o:hover::before{opacity:1}
+.b-wt{background:#fff;color:#121210}
 
-/* ===== hero ===== */
-.hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden}
-.hero .ph{position:absolute;inset:0}
-.hero img{width:100%;height:100%;object-fit:cover}
-.hero .ph::after{content:"";position:absolute;inset:0;
-  background:linear-gradient(180deg,#0a0a08a6 0,#0a0a081a 30%,#0a0a0880 66%,#0a0a08ed 100%),
-             linear-gradient(78deg,#0a0a08c4 0,#0a0a084d 44%,#0a0a0800 76%)}
-.hero .wrap{position:relative;z-index:2;color:#fff;padding-bottom:clamp(38px,8vh,88px)}
-.hero .kicker{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.22em;color:#ffffffcc;margin-bottom:22px}
-.hero .kicker::before{content:"";width:36px;height:1px;background:#ffffff80;flex:none}
-.hero h1{font-size:clamp(31px,7vw,78px);font-weight:900;line-height:1.24;letter-spacing:.03em}
-.hero h1 span{display:block}
-.hero p{margin-top:20px;max-width:31em;font-size:clamp(13.5px,1.5vw,16px);color:#ffffffd6;line-height:2.05}
-.hero .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
-@media(max-width:520px){.hero .acts .btn{flex:1 1 100%;padding:15px 12px}}
-.spec{display:grid;grid-template-columns:repeat(2,1fr);gap:0 26px;margin-top:38px;border-top:1px solid #ffffff2e}
-@media(min-width:760px){.spec{grid-template-columns:repeat(4,1fr)}}
-.spec div{padding:18px 0 4px}
-.spec b{display:block;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(23px,3vw,34px);letter-spacing:.02em;line-height:1.1}
-.spec b em{font-style:normal;font-size:.44em;margin-left:.28em;letter-spacing:.1em}
-.spec span{display:block;margin-top:7px;font-size:10.5px;letter-spacing:.16em;color:#ffffffb0}
+/* ===== HERO : ルームツアー ===== */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:#0a0a08}
+.stage{position:absolute;inset:0}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s var(--ease)}
+.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.12);transform-origin:var(--o,50% 50%)}
+.slide.on{opacity:1}
+.slide.on img{transform:scale(1);transition:transform calc(var(--tour) + 1600ms) linear}
+.stage::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,#0a0a089e 0,#0a0a081f 26%,#0a0a0885 64%,#0a0a08f0 100%),
+             linear-gradient(78deg,#0a0a08c9 0,#0a0a0847 46%,#0a0a0800 78%)}
+.hero .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;
+  color:#fff;padding-bottom:clamp(30px,6.4vh,72px)}
+.kicker{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.22em;color:#ffffffdb;margin-bottom:20px;text-shadow:0 1px 14px #000000a6}
+.kicker::before{content:"";width:36px;height:1px;background:#ffffff80;flex:none}
+.hero h1{font-size:clamp(30px,6.6vw,74px);font-weight:900;line-height:1.24;letter-spacing:.03em;text-shadow:0 2px 34px #00000073}
+.hero .sub{margin-top:18px;max-width:31em;font-size:clamp(13px,1.4vw,15.5px);color:#ffffffdb;line-height:2.05;text-shadow:0 1px 16px #00000094}
+.hero .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+@media(max-width:560px){.hero .acts .btn{flex:1 1 100%;padding:15px 12px}}
+
+/* ツアーのUI */
+.tour{margin-top:clamp(22px,3.4vh,38px);display:grid;gap:14px}
+.room{display:flex;align-items:baseline;gap:14px;min-height:1.9em}
+.room .rn{font-family:Archivo,sans-serif;font-weight:600;font-size:11px;letter-spacing:.2em;color:#ffffff9e;flex:none}
+.room .rt{font-size:clamp(13.5px,1.5vw,16px);font-weight:700;letter-spacing:.08em;text-shadow:0 1px 14px #000000a6;
+  opacity:0;transform:translateY(6px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.room .rt.on{opacity:1;transform:none}
+.dots{display:grid;grid-auto-flow:column;gap:8px;justify-content:start}
+.dots button{-webkit-appearance:none;appearance:none;border:0;background:#ffffff3d;padding:0;cursor:pointer;
+  width:clamp(34px,7vw,62px);height:2px;position:relative;overflow:hidden;border-radius:2px}
+.dots button i{position:absolute;inset:0;background:#fff;transform:scaleX(0);transform-origin:left;display:block}
+.dots button[aria-current="true"] i{animation:fill var(--tour) linear forwards}
+.dots button.done i{transform:scaleX(1)}
+@keyframes fill{to{transform:scaleX(1)}}
+.pause{display:inline-flex;align-items:center;gap:7px;background:none;border:0;color:#ffffffa8;cursor:pointer;
+  font:inherit;font-size:10.5px;letter-spacing:.2em;padding:4px 0}
+.pause svg{width:9px;height:11px;fill:currentColor}
+.pause:hover{color:#fff}
 
 /* ===== section ===== */
 section{padding:clamp(66px,9vw,150px) 0}
 .head{display:grid;gap:16px}
 .eye{display:flex;align-items:center;gap:13px;font-size:10.5px;letter-spacing:.3em;color:var(--sub);
   font-family:Archivo,sans-serif;font-weight:500}
-.eye::before{content:"";width:26px;height:1px;background:var(--wood);flex:none}
+.eye::before{content:"";width:0;height:1px;background:var(--wood);flex:none;transition:width var(--s) var(--ease)}
+.eye.in::before{width:26px}
 h2{font-size:clamp(23px,3.4vw,42px);font-weight:900;letter-spacing:.045em;line-height:1.45}
 .lead{color:var(--sub);max-width:36em;font-size:clamp(13.5px,1.08vw,15.5px)}
 
+/* ===== counters ===== */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:0 24px;border-top:1px solid var(--rule);margin-top:clamp(40px,5vw,64px)}
+@media(min-width:760px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats div{padding:22px 0 6px;border-bottom:1px solid var(--rule-2)}
+@media(min-width:760px){.stats div{border-bottom:0}}
+.stats b{display:block;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(26px,3.4vw,40px);line-height:1.05;letter-spacing:.01em}
+.stats b em{font-style:normal;font-size:.42em;margin-left:.3em;letter-spacing:.1em;color:var(--sub)}
+.stats span{display:block;margin-top:8px;font-size:10.5px;letter-spacing:.16em;color:var(--sub)}
+
 /* ===== cases ===== */
-.cases{display:grid;gap:clamp(52px,6vw,96px);margin-top:clamp(40px,5vw,72px)}
+.cases{display:grid;gap:clamp(56px,7vw,120px);margin-top:clamp(40px,5vw,72px)}
 .case{display:grid;gap:clamp(18px,2.6vw,44px)}
-@media(min-width:900px){
-  .case{grid-template-columns:1.35fr .65fr;align-items:start}
-  .case:nth-child(even){grid-template-columns:.65fr 1.35fr}
-  .case:nth-child(even) figure{order:2}
-}
 .case figure{overflow:hidden;background:var(--bg2)}
 .case figure img{width:100%}
+@media(min-width:900px){
+  .case{grid-template-columns:1.38fr .62fr;align-items:center}
+  .case:nth-child(even){grid-template-columns:.62fr 1.38fr}
+  .case:nth-child(even) figure{order:2}
+  /* 画像は外側へはみ出す（誌面のような見せ方） */
+  .case:nth-child(odd) figure{margin-left:calc(var(--gut) * -1)}
+  .case:nth-child(even) figure{margin-right:calc(var(--gut) * -1)}
+}
 .cno{display:block;font-family:Archivo,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;color:var(--wood)}
 .case h3{margin-top:12px;font-size:clamp(18px,2vw,25px);font-weight:900;letter-spacing:.05em;line-height:1.55}
-.case>div>p{margin-top:12px;color:var(--sub);font-size:13.5px}
+.case .cd{margin-top:12px;color:var(--sub);font-size:13.5px}
 .dl-spec{margin-top:20px;border-top:1px solid var(--rule)}
 .dl-spec div{display:grid;grid-template-columns:5.8em 1fr;gap:14px;padding:9px 0;border-bottom:1px solid var(--rule-2);font-size:12.5px}
 .dl-spec dt{color:var(--sub);letter-spacing:.1em}
-.dl-spec dd{letter-spacing:.03em}
+
+/* ===== full-bleed band with parallax ===== */
+.bleed{position:relative;height:clamp(300px,52vh,560px);overflow:hidden;background:var(--bg2)}
+.bleed .px{position:absolute;inset:-14% 0}
+.bleed img{width:100%;height:100%;object-fit:cover}
+.bleed .cap{position:absolute;left:0;right:0;bottom:clamp(20px,4vw,40px);z-index:2;color:#fff;
+  font-size:clamp(13px,1.5vw,17px);font-weight:700;letter-spacing:.1em;text-shadow:0 1px 24px #0007}
+.bleed::after{content:"";position:absolute;inset:0;background:linear-gradient(#0000 40%,#0a0a0899)}
 
 /* ===== belief ===== */
 .belief{background:var(--bg2)}
@@ -134,38 +192,37 @@ h2{font-size:clamp(23px,3.4vw,42px);font-weight:900;letter-spacing:.045em;line-h
 .bcard h3{margin-top:9px;font-size:clamp(16.5px,1.7vw,20px);font-weight:900;letter-spacing:.05em;line-height:1.6}
 .bcard p{margin-top:11px;color:var(--sub);font-size:13.5px}
 
-/* ===== steps ===== */
-.steps{margin-top:clamp(36px,4.6vw,64px);border-top:1px solid var(--rule)}
-.step{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:clamp(18px,2.2vw,26px) 0;border-bottom:1px solid var(--rule)}
+/* ===== steps（線が描かれる） ===== */
+.steps{position:relative;margin-top:clamp(36px,4.6vw,64px);padding-left:26px}
+.steps::before{content:"";position:absolute;left:0;top:6px;bottom:6px;width:1px;background:var(--rule)}
+.steps::after{content:"";position:absolute;left:0;top:6px;width:1px;background:var(--wood);
+  height:var(--prog,0%);transition:height .18s linear}
+.step{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;padding:clamp(18px,2.2vw,26px) 0;border-bottom:1px solid var(--rule);position:relative}
+.step::before{content:"";position:absolute;left:-30px;top:calc(clamp(18px,2.2vw,26px) + .7em);width:9px;height:9px;
+  border-radius:50%;background:var(--bg);border:1px solid var(--rule);transition:background var(--f),border-color var(--f)}
+.step.in::before{background:var(--wood);border-color:var(--wood)}
 @media(min-width:760px){.step{grid-template-columns:5.8em 15em 1fr;align-items:baseline}}
 .step .sn{font-family:Archivo,sans-serif;font-weight:600;font-size:12px;letter-spacing:.2em;color:var(--wood)}
 .step h3{font-size:clamp(15.5px,1.5vw,18px);font-weight:700;letter-spacing:.05em}
 .step p{color:var(--sub);font-size:13.5px;grid-column:1/-1}
 @media(min-width:760px){.step p{grid-column:3}}
 
-/* ===== cost ===== */
+/* ===== cost / qa / company ===== */
 .cost{border-top:1px solid var(--rule);margin-top:clamp(34px,4.4vw,58px)}
-.cost li{display:grid;grid-template-columns:1fr auto;gap:6px 20px;align-items:baseline;
-  padding:clamp(17px,2.1vw,24px) 0;border-bottom:1px solid var(--rule)}
+.cost li{display:grid;grid-template-columns:1fr auto;gap:6px 20px;align-items:baseline;padding:clamp(17px,2.1vw,24px) 0;border-bottom:1px solid var(--rule)}
 .cost .n{font-weight:700;letter-spacing:.05em;font-size:clamp(14.5px,1.2vw,16.5px)}
 .cost .d{display:block;margin-top:5px;font-size:12.5px;color:var(--sub);font-weight:400}
 .cost .v{font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(16px,1.7vw,21px);white-space:nowrap}
 .cost .v em{font-style:normal;font-size:.6em;color:var(--sub);margin-left:3px;letter-spacing:.08em}
 .note{margin-top:20px;font-size:12.5px;color:var(--sub)}
-
-/* ===== qa ===== */
 .qa{margin-top:clamp(32px,4vw,54px);border-top:1px solid var(--rule)}
 .qa details{border-bottom:1px solid var(--rule)}
-.qa summary{list-style:none;cursor:pointer;position:relative;padding:clamp(17px,2vw,23px) 42px clamp(17px,2vw,23px) 0;
-  font-size:14.5px;font-weight:500;letter-spacing:.04em}
+.qa summary{list-style:none;cursor:pointer;position:relative;padding:clamp(17px,2vw,23px) 42px clamp(17px,2vw,23px) 0;font-size:14.5px;font-weight:500;letter-spacing:.04em}
 .qa summary::-webkit-details-marker{display:none}
 .qa summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:1px;background:var(--ink)}
-.qa summary::before{content:"";position:absolute;right:11px;top:50%;width:1px;height:12px;background:var(--ink);
-  transform:translateY(-50%);transition:transform var(--f) var(--ease)}
+.qa summary::before{content:"";position:absolute;right:11px;top:50%;width:1px;height:12px;background:var(--ink);transform:translateY(-50%);transition:transform var(--f) var(--ease)}
 .qa details[open] summary::before{transform:translateY(-50%) scaleY(0)}
 .qa .a{padding:0 0 24px;color:var(--sub);font-size:13.5px;max-width:48em}
-
-/* ===== company ===== */
 .co{display:grid;gap:clamp(28px,4vw,64px)}
 @media(min-width:900px){.co{grid-template-columns:1fr 1fr;align-items:center}}
 .co figure{overflow:hidden;background:var(--bg2)}
@@ -175,28 +232,23 @@ h2{font-size:clamp(23px,3.4vw,42px);font-weight:900;letter-spacing:.045em;line-h
 .dl2 dd{font-size:14px}
 @media(max-width:520px){.dl2 div{grid-template-columns:1fr}}
 
-/* ===== band ===== */
+/* ===== contact band ===== */
 .band{position:relative;overflow:hidden;color:#fff;isolation:isolate}
-.band .ph{position:absolute;inset:0;z-index:-1}
+.band .ph{position:absolute;inset:-12% 0;z-index:-1}
 .band .ph img{width:100%;height:100%;object-fit:cover}
-.band .ph::after{content:"";position:absolute;inset:0;background:#0a0a08cf}
+.band::after{content:"";position:absolute;inset:0;z-index:-1;background:#0a0a08d1}
 .band .head{justify-items:center;text-align:center}
-.band .eye{color:#ffffffa8}
-.band .eye::before{background:#ffffff66}
+.band .eye{color:#ffffffa8}.band .eye::before{background:#ffffff66}
 .band .lead{color:#ffffffc7;margin-inline:auto;text-align:center}
 .band .acts{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:34px}
 
-/* ===== footer ===== */
-footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom));font-size:12.5px;color:var(--sub);
-  border-top:1px solid var(--rule)}
+/* ===== footer / bar ===== */
+footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom));font-size:12.5px;color:var(--sub);border-top:1px solid var(--rule)}
 @media(min-width:980px){footer{padding-bottom:clamp(46px,5.5vw,70px)}}
 .fb{display:flex;align-items:center;gap:11px;color:var(--ink)}
-.fb svg{width:24px;height:24px}
-.fb b{font-size:16px;font-weight:700;letter-spacing:.14em}
+.fb svg{width:24px;height:24px}.fb b{font-size:16px;font-weight:700;letter-spacing:.14em}
 .sample{margin-top:24px;padding:17px 19px;border:1px solid var(--rule);background:var(--bg2);line-height:1.9}
 .sample b{color:var(--ink)}
-
-/* ===== mobile bar ===== */
 .bar{position:fixed;inset:auto 0 0;z-index:55;display:grid;grid-template-columns:1fr 1fr;gap:8px;
   padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fffffff2;backdrop-filter:blur(12px);
   box-shadow:inset 0 1px 0 var(--rule);transform:translateY(102%);transition:transform var(--f) var(--ease)}
@@ -214,55 +266,80 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
       <b>木戸建築設計</b><i>KIDO / KUMAMOTO</i>
     </a>
     <nav>
-      <a href="#works">施工事例</a>
-      <a href="#belief">家づくりの考え</a>
-      <a href="#flow">建つまで</a>
-      <a href="#cost">費用の目安</a>
-      <a href="#company">会社概要</a>
+      <a href="#works">施工事例</a><a href="#belief">家づくりの考え</a><a href="#flow">建つまで</a><a href="#cost">費用の目安</a><a href="#company">会社概要</a>
     </nav>
-    <a class="btn b-ink hcta" href="#contact">無料相談を申し込む</a>
+    <a class="btn b-ink hcta" href="#contact"><span>無料相談を申し込む</span></a>
   </div>
 </header>
 
 <main id="top">
 
-<section class="hero">
-  <div class="ph">
-    <img src="img/hero.jpg" srcset="img/hero@s.jpg 880w, img/hero.jpg 2400w" sizes="100vw"
-         width="2400" height="1350" alt="木の壁と大きな開口のあるリビング" fetchpriority="high">
+<!-- HERO : ルームツアー -->
+<section class="hero" id="hero" aria-label="施工した家のルームツアー">
+  <div class="stage" id="stage">
+    <div class="slide on" style="--o:50% 60%"><img src="img/r1.jpg" srcset="img/r1@s.jpg 900w, img/r1.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="木の外壁の外観" fetchpriority="high"></div>
+    <div class="slide" style="--o:40% 45%"><img src="img/r2.jpg" srcset="img/r2@s.jpg 900w, img/r2.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="玄関から続く階段と吹き抜け" loading="lazy"></div>
+    <div class="slide" style="--o:60% 50%"><img src="img/r3.jpg" srcset="img/r3@s.jpg 900w, img/r3.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="木の壁と大きな開口のあるリビング" loading="lazy"></div>
+    <div class="slide" style="--o:50% 40%"><img src="img/r4.jpg" srcset="img/r4@s.jpg 900w, img/r4.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="造作のキッチン" loading="lazy"></div>
+    <div class="slide" style="--o:45% 55%"><img src="img/r5.jpg" srcset="img/r5@s.jpg 900w, img/r5.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="朝の光が入る寝室" loading="lazy"></div>
   </div>
+
   <div class="wrap">
     <div class="kicker t">熊本市・阿蘇・菊池／注文住宅とリノベーション</div>
-    <h1 class="t"><span>木の見える家を、</span><span>熊本で。</span></h1>
-    <p class="t">土地も予算も決まっていない段階から相談できます。図面の前に、朝どこで陽を浴びたいか、洗濯物をどこに干すか。暮らし方の話から始めます。</p>
+    <h1><span class="m"><i>木の見える家を、</i></span><span class="m"><i>熊本で。</i></span></h1>
+    <p class="sub t">土地も予算も決まっていない段階から相談できます。図面の前に、朝どこで陽を浴びたいか、洗濯物をどこに干すか。暮らし方の話から始めます。</p>
     <div class="acts t">
-      <a class="btn b-ink" href="#contact">無料の家づくり相談</a>
-      <a class="btn b-w" href="#works">施工事例を見る</a>
+      <a class="btn b-ink" href="#contact"><span>無料の家づくり相談</span></a>
+      <a class="btn b-w" href="#works"><span>施工事例を見る</span></a>
     </div>
-    <div class="spec">
-      <div class="t"><b>1998<em>年</em></b><span>創業</span></div>
-      <div class="t"><b>214<em>棟</em></b><span>これまでの施工</span></div>
-      <div class="t"><b>35<em>年</em></b><span>構造・防水の保証</span></div>
-      <div class="t"><b>10<em>年</em></b><span>引き渡し後の無料点検</span></div>
+
+    <div class="tour t">
+      <div class="room">
+        <span class="rn">ROOM TOUR</span>
+        <span class="rt on" id="roomLabel">外観 — 焼杉と木の壁</span>
+      </div>
+      <div class="dots" id="dots" role="tablist" aria-label="部屋を選ぶ"></div>
+      <button class="pause" id="pauseBtn" aria-pressed="false">
+        <svg viewBox="0 0 10 12" aria-hidden="true"><rect x="0" y="0" width="3" height="12"/><rect x="7" y="0" width="3" height="12"/></svg>
+        <span id="pauseTxt">PAUSE</span>
+      </button>
     </div>
   </div>
 </section>
 
-<section id="works">
+<!-- INTRO + COUNTERS -->
+<section>
+  <div class="wrap mid">
+    <div class="head">
+      <span class="eye">ABOUT</span>
+      <h2><span class="m"><i>建ててから、</i></span><span class="m"><i>いちばん長く付き合います。</i></span></h2>
+      <p class="lead t">熊本市と阿蘇を中心に、木の見える家を建てています。担当は設計から現場、引き渡し後の点検まで替わりません。</p>
+    </div>
+    <div class="stats" id="stats">
+      <div class="t"><b><span data-n="1998">0</span><em>年</em></b><span>創業</span></div>
+      <div class="t"><b><span data-n="214">0</span><em>棟</em></b><span>これまでの施工</span></div>
+      <div class="t"><b><span data-n="35">0</span><em>年</em></b><span>構造・防水の保証</span></div>
+      <div class="t"><b><span data-n="10">0</span><em>年</em></b><span>引き渡し後の無料点検</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS -->
+<section id="works" style="padding-top:0">
   <div class="wrap">
     <div class="head">
-      <span class="eye t">WORKS</span>
-      <h2 class="t">建てた家を、<br>数字ごと載せています。</h2>
+      <span class="eye">WORKS</span>
+      <h2><span class="m"><i>建てた家を、</i></span><span class="m"><i>数字ごと載せています。</i></span></h2>
       <p class="lead t">面積・構造・工期・本体価格まで出しています。ご自分の計画と比べられるようにするためです。</p>
     </div>
 
     <div class="cases">
       <article class="case">
-        <figure class="rv"><img src="img/c1@s.jpg" srcset="img/c1@s.jpg 880w, img/c1.jpg 1899w" sizes="(min-width:900px) 62vw, 100vw" width="1899" height="1266" alt="大きな窓から光が入る、木を使ったリビング" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="18" src="img/c1@s.jpg" srcset="img/c1@s.jpg 880w, img/c1.jpg 1899w" sizes="(min-width:900px) 64vw, 100vw" width="1899" height="1266" alt="大きな窓から光が入る、木を使ったリビング" loading="lazy"></figure>
         <div>
           <span class="cno t">CASE 01</span>
-          <h3 class="t">阿蘇の、朝日で起きる家</h3>
-          <p class="t">東側に大きく開口を取り、寝室からリビングまで朝の光が抜けるようにしました。冬の冷え込みが強い土地なので、断熱を等級6まで上げています。</p>
+          <h3><span class="m"><i>阿蘇の、朝日で起きる家</i></span></h3>
+          <p class="cd t">東側に大きく開口を取り、寝室からリビングまで朝の光が抜けるようにしました。冬の冷え込みが強い土地なので、断熱を等級6まで上げています。</p>
           <dl class="dl-spec t">
             <div><dt>所在地</dt><dd>阿蘇郡</dd></div>
             <div><dt>延床面積</dt><dd>112.6㎡（34.1坪）</dd></div>
@@ -274,11 +351,11 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
       </article>
 
       <article class="case">
-        <figure class="rv"><img src="img/c2@s.jpg" srcset="img/c2@s.jpg 880w, img/c2.jpg 2400w" sizes="(min-width:900px) 62vw, 100vw" width="2400" height="1600" alt="キッチンとつながる、木を使った広いリビング" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="18" src="img/c2@s.jpg" srcset="img/c2@s.jpg 880w, img/c2.jpg 2400w" sizes="(min-width:900px) 64vw, 100vw" width="2400" height="1600" alt="キッチンとつながる、木を使った広いリビング" loading="lazy"></figure>
         <div>
           <span class="cno t">CASE 02</span>
-          <h3 class="t">台所に、人が集まる家</h3>
-          <p class="t">「料理をしながら家族の顔が見えるように」というご要望から、キッチンを家の中心に置きました。ダイニングとの段差をなくし、来客時も動線がぶつかりません。</p>
+          <h3><span class="m"><i>台所に、人が集まる家</i></span></h3>
+          <p class="cd t">「料理をしながら家族の顔が見えるように」というご要望から、キッチンを家の中心に置きました。ダイニングとの段差をなくし、来客時も動線がぶつかりません。</p>
           <dl class="dl-spec t">
             <div><dt>所在地</dt><dd>熊本市東区</dd></div>
             <div><dt>延床面積</dt><dd>98.4㎡（29.8坪）</dd></div>
@@ -290,11 +367,11 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
       </article>
 
       <article class="case">
-        <figure class="rv"><img src="img/c3@s.jpg" srcset="img/c3@s.jpg 880w, img/c3.jpg 2400w" sizes="(min-width:900px) 62vw, 100vw" width="2400" height="1600" alt="無垢の床とやわらかい光のあるリビング" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="18" src="img/c3@s.jpg" srcset="img/c3@s.jpg 880w, img/c3.jpg 2400w" sizes="(min-width:900px) 64vw, 100vw" width="2400" height="1600" alt="無垢の床とやわらかい光のあるリビング" loading="lazy"></figure>
         <div>
           <span class="cno t">CASE 03</span>
-          <h3 class="t">築42年を、住み継ぐ</h3>
-          <p class="t">お父さまが建てられた家の柱と梁を残し、断熱と水まわりだけを入れ替えました。既存を活かすほうが安いとは限らないので、建て替えとの比較表をお出ししてから決めていただきました。</p>
+          <h3><span class="m"><i>築42年を、住み継ぐ</i></span></h3>
+          <p class="cd t">お父さまが建てられた家の柱と梁を残し、断熱と水まわりだけを入れ替えました。既存を活かすほうが安いとは限らないので、建て替えとの比較表をお出ししてから決めていただきました。</p>
           <dl class="dl-spec t">
             <div><dt>所在地</dt><dd>菊池市</dd></div>
             <div><dt>延床面積</dt><dd>121.0㎡（36.6坪）</dd></div>
@@ -308,43 +385,51 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   </div>
 </section>
 
+<!-- FULL BLEED -->
+<div class="bleed" aria-hidden="true">
+  <div class="px" data-px="42"><img src="img/g2@s.jpg" srcset="img/g2@s.jpg 900w, img/g2.jpg 1280w" sizes="100vw" width="1280" height="1600" alt="" loading="lazy"></div>
+  <div class="wrap cap"><span class="m"><i>木は、建ててからも動きます。</i></span></div>
+</div>
+
+<!-- BELIEF -->
 <section class="belief" id="belief">
   <div class="wrap">
     <div class="head">
-      <span class="eye t">OUR WORK</span>
-      <h2 class="t">3つだけ、決めています。</h2>
+      <span class="eye">OUR WORK</span>
+      <h2><span class="m"><i>3つだけ、決めています。</i></span></h2>
     </div>
     <div class="bgrid">
       <div class="bcard">
-        <figure class="rv"><img src="img/d1@s.jpg" srcset="img/d1@s.jpg 880w, img/d1.jpg 1694w" sizes="(min-width:860px) 31vw, 100vw" width="1694" height="2118" alt="木の床と、静かな窓辺" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="14" src="img/d1@s.jpg" srcset="img/d1@s.jpg 880w, img/d1.jpg 1694w" sizes="(min-width:860px) 31vw, 100vw" width="1694" height="2118" alt="木の床と、静かな窓辺" loading="lazy"></figure>
         <span class="n t">01</span>
-        <h3 class="t">図面より先に、<br>暮らしを聞きます</h3>
+        <h3><span class="m"><i>図面より先に、</i></span><span class="m"><i>暮らしを聞きます</i></span></h3>
         <p class="t">初回は間取りの話をしません。起きる時間、洗濯を干す場所、来客の頻度。それが決まると間取りはほぼ決まります。</p>
       </div>
       <div class="bcard">
-        <figure class="rv"><img src="img/d2@s.jpg" srcset="img/d2@s.jpg 880w, img/d2.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="造作のキッチンと、木の床" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="14" src="img/d2@s.jpg" srcset="img/d2@s.jpg 880w, img/d2.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="造作のキッチンと、木の床" loading="lazy"></figure>
         <span class="n t">02</span>
-        <h3 class="t">見積に、<br>一式と書きません</h3>
+        <h3><span class="m"><i>見積に、</i></span><span class="m"><i>一式と書きません</i></span></h3>
         <p class="t">材料と手間を分けて出します。減らせるところとそうでないところを、ご自分で判断できる状態にしてから着工します。</p>
       </div>
       <div class="bcard">
-        <figure class="rv"><img src="img/d3@s.jpg" srcset="img/d3@s.jpg 880w, img/d3.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="大きな窓のあるリビング" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="14" src="img/g1@s.jpg" srcset="img/g1@s.jpg 900w, img/g1.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="洗面まわりの造作" loading="lazy"></figure>
         <span class="n t">03</span>
-        <h3 class="t">引き渡してから、<br>10年通います</h3>
+        <h3><span class="m"><i>引き渡してから、</i></span><span class="m"><i>10年通います</i></span></h3>
         <p class="t">半年・1年・2年・5年・10年に点検にうかがいます。木は動くものなので、建てて終わりにはできません。</p>
       </div>
     </div>
   </div>
 </section>
 
+<!-- FLOW -->
 <section id="flow">
   <div class="wrap mid">
     <div class="head">
-      <span class="eye t">FLOW</span>
-      <h2 class="t">相談から引き渡しまで、<br>およそ12か月。</h2>
+      <span class="eye">FLOW</span>
+      <h2><span class="m"><i>相談から引き渡しまで、</i></span><span class="m"><i>およそ12か月。</i></span></h2>
       <p class="lead t">どの段階でやめても費用はかかりません。ご契約は4番目の実施設計からです。</p>
     </div>
-    <div class="steps">
+    <div class="steps" id="steps">
       <div class="step"><span class="sn t">STEP 01</span><h3 class="t">無料相談（60分）</h3><p class="t">土地も予算も未定で構いません。今の住まいの不満と、毎月いくらまでなら返せるかだけ持ってきてください。</p></div>
       <div class="step"><span class="sn t">STEP 02</span><h3 class="t">資金計画・土地さがし</h3><p class="t">借入可能額ではなく、無理なく返せる額から総額を逆算します。土地は提携の不動産会社と一緒に探します。</p></div>
       <div class="step"><span class="sn t">STEP 03</span><h3 class="t">プランと概算見積</h3><p class="t">平面図と、材料・手間を分けた概算をお出しします。ここまで無料です。</p></div>
@@ -355,11 +440,12 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   </div>
 </section>
 
+<!-- COST -->
 <section id="cost" style="padding-top:0">
   <div class="wrap mid">
     <div class="head">
-      <span class="eye t">COST</span>
-      <h2 class="t">費用の目安</h2>
+      <span class="eye">COST</span>
+      <h2><span class="m"><i>費用の目安</i></span></h2>
       <p class="lead t">建物本体のみの目安です。土地・外構・地盤改良・登記・火災保険は別途かかります。総額は初回相談でお出しします。</p>
     </div>
     <ul class="cost">
@@ -373,11 +459,12 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   </div>
 </section>
 
+<!-- QA -->
 <section style="padding-top:0">
   <div class="wrap mid">
     <div class="head">
-      <span class="eye t">Q &amp; A</span>
-      <h2 class="t">よくいただく質問</h2>
+      <span class="eye">Q &amp; A</span>
+      <h2><span class="m"><i>よくいただく質問</i></span></h2>
     </div>
     <div class="qa">
       <details class="t"><summary>土地がまだ決まっていません。相談できますか。</summary><div class="a">その段階のご相談が一番多いです。先に土地を買ってしまうと建てられる家が制限されるので、建てたい家の条件を決めてから土地を探すほうが、結果的に総額は下がります。提携の不動産会社と一緒にお探しします。</div></details>
@@ -389,13 +476,14 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   </div>
 </section>
 
+<!-- COMPANY -->
 <section id="company" class="belief">
   <div class="wrap co">
-    <figure class="rv"><img src="img/co@s.jpg" srcset="img/co@s.jpg 880w, img/co.jpg 2136w" sizes="(min-width:900px) 46vw, 100vw" width="2136" height="1602" alt="事務所の打ち合わせスペース" loading="lazy"></figure>
+    <figure class="rv"><img class="px" data-px="16" src="img/co@s.jpg" srcset="img/co@s.jpg 880w, img/co.jpg 2136w" sizes="(min-width:900px) 46vw, 100vw" width="2136" height="1602" alt="事務所の打ち合わせスペース" loading="lazy"></figure>
     <div>
       <div class="head">
-        <span class="eye t">COMPANY</span>
-        <h2 class="t">会社概要</h2>
+        <span class="eye">COMPANY</span>
+        <h2><span class="m"><i>会社概要</i></span></h2>
       </div>
       <dl class="dl2">
         <div class="t"><dt>会社名</dt><dd>株式会社 木戸建築設計</dd></div>
@@ -411,20 +499,19 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   </div>
 </section>
 
+<!-- CONTACT -->
 <section class="band" id="contact">
-  <div class="ph"><img src="img/band@s.jpg" srcset="img/band@s.jpg 880w, img/band.jpg 2400w" sizes="100vw" width="2400" height="1350" alt="" loading="lazy" aria-hidden="true"></div>
+  <div class="ph"><img class="px" data-px="34" src="img/band@s.jpg" srcset="img/band@s.jpg 880w, img/band.jpg 2400w" sizes="100vw" width="2400" height="1350" alt="" loading="lazy" aria-hidden="true"></div>
   <div class="wrap tight">
     <div class="head">
-      <span class="eye t">CONTACT</span>
-      <h2 class="t">「まだ何も決まっていない」<br>で、来てください。</h2>
+      <span class="eye">CONTACT</span>
+      <h2><span class="m"><i>「まだ何も決まっていない」</i></span><span class="m"><i>で、来てください。</i></span></h2>
       <p class="lead t">60分の無料相談です。しつこい営業はしません。お断りのご連絡も不要です。現地を見てほしい、見積だけ比べたい、というご依頼にも対応します。</p>
     </div>
     <div class="acts t">
-      <a class="btn" style="background:#fff;color:#121210" href="#">相談を申し込む</a>
-      <a class="btn b-line" href="#">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.6 1.6 4.9 4 6.4-.1.6-.5 2.1-.6 2.4 0 .3.2.4.4.3.3-.1 3.1-2 4.3-2.8.6.1 1.2.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>
-        LINEで質問する</a>
-      <a class="btn b-w" href="tel:0960000000">096-000-0000</a>
+      <a class="btn b-wt" href="#"><span>相談を申し込む</span></a>
+      <a class="btn b-line" href="#"><span><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.6 1.6 4.9 4 6.4-.1.6-.5 2.1-.6 2.4 0 .3.2.4.4.3.3-.1 3.1-2 4.3-2.8.6.1 1.2.1 1.9.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>LINEで質問する</span></a>
+      <a class="btn b-w" href="tel:0960000000"><span>096-000-0000</span></a>
     </div>
   </div>
 </section>
@@ -447,38 +534,160 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 </footer>
 
 <div class="bar" id="bar">
-  <a class="btn b-ink" href="#contact">無料相談</a>
-  <a class="btn b-o" href="tel:0960000000">電話する</a>
+  <a class="btn b-ink" href="#contact"><span>無料相談</span></a>
+  <a class="btn b-o" href="tel:0960000000"><span>電話する</span></a>
 </div>
 
 <script>
 (function(){
-  var hd=document.getElementById('hd'),bar=document.getElementById('bar'),hero=document.querySelector('.hero');
-  if(!('IntersectionObserver' in window)){
-    document.querySelectorAll('.rv,.t').forEach(function(n){n.classList.add('in')});
-    bar.classList.add('on'); hd.classList.add('on'); return;
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hd=document.getElementById('hd'),bar=document.getElementById('bar'),hero=document.getElementById('hero');
+
+  /* ---------- ルームツアー ---------- */
+  var ROOMS=[
+    {t:'外観 — 焼杉と木の壁'},
+    {t:'玄関 — 階段と吹き抜け'},
+    {t:'リビング — 東からの光'},
+    {t:'キッチン — 造作と無垢の床'},
+    {t:'寝室 — 朝の明るさ'}
+  ];
+  var slides=[].slice.call(document.querySelectorAll('.slide')),
+      dots=document.getElementById('dots'),
+      label=document.getElementById('roomLabel'),
+      pauseBtn=document.getElementById('pauseBtn'),
+      pauseTxt=document.getElementById('pauseTxt'),
+      cur=0,timer=null,paused=reduce,visible=true;
+  var DUR=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tour'))||6800;
+
+  ROOMS.forEach(function(r,i){
+    var b=document.createElement('button');
+    b.type='button'; b.setAttribute('role','tab');
+    b.setAttribute('aria-label',r.t);
+    b.setAttribute('aria-current',i===0?'true':'false');
+    b.innerHTML='<i></i>';
+    b.addEventListener('click',function(){go(i,true)});
+    dots.appendChild(b);
+  });
+  var btns=[].slice.call(dots.children);
+
+  function go(i,manual){
+    if(i===cur&&!manual) return;
+    slides[cur].classList.remove('on');
+    btns[cur].setAttribute('aria-current','false');
+    btns[cur].classList.toggle('done', i>cur);
+    cur=i;
+    slides[cur].classList.add('on');
+    // ラベルを差し替え（フェード）
+    label.classList.remove('on');
+    setTimeout(function(){ label.textContent=ROOMS[cur].t; label.classList.add('on'); },260);
+    btns.forEach(function(b,n){ b.classList.toggle('done', n<cur); });
+    var b=btns[cur]; b.setAttribute('aria-current','false');
+    void b.offsetWidth;                 // アニメーションを巻き戻す
+    b.setAttribute('aria-current','true');
+    if(!paused) schedule();
   }
-  new IntersectionObserver(function(e){
-    var past=!e[0].isIntersecting;
-    hd.classList.toggle('on',past); bar.classList.toggle('on',past);
-  },{rootMargin:'-74px 0px 0px 0px'}).observe(hero);
+  function schedule(){ clearTimeout(timer); timer=setTimeout(function(){ go((cur+1)%slides.length); },DUR); }
+  function setPaused(p){
+    paused=p; pauseBtn.setAttribute('aria-pressed',String(p));
+    pauseTxt.textContent=p?'PLAY':'PAUSE';
+    btns[cur].style.animationPlayState=p?'paused':'running';
+    document.querySelectorAll('.dots button i').forEach(function(n){n.style.animationPlayState=p?'paused':'running'});
+    if(p) clearTimeout(timer); else schedule();
+  }
+  pauseBtn.addEventListener('click',function(){ setPaused(!paused) });
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden){ clearTimeout(timer); } else if(!paused && visible){ schedule(); }
+  });
+  if(!reduce){
+    schedule();
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(e){
+        visible=e[0].isIntersecting;
+        if(!visible){ clearTimeout(timer); } else if(!paused){ schedule(); }
+      },{threshold:.15}).observe(hero);
+    }
+  }else{ pauseBtn.style.display='none'; }
 
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting) return;
-      var el=e.target,p=el.parentElement,i=0;
-      if(p){var sib=[].slice.call(p.children).filter(function(n){return n.classList.contains('t')});i=Math.max(0,sib.indexOf(el));}
-      el.style.transitionDelay=Math.min(i,6)*60+'ms';
-      el.classList.add('in'); io.unobserve(el);
-    });
-  },{rootMargin:'0px 0px -10% 0px',threshold:.06});
-  document.querySelectorAll('.rv,.t').forEach(function(n){io.observe(n)});
+  /* ---------- 出現（写真は左から開く / 見出しは行が上がる） ---------- */
+  if(!('IntersectionObserver' in window)){
+    document.querySelectorAll('.rv,.t,.m,.eye,.step').forEach(function(n){n.classList.add('in')});
+    hd.classList.add('on'); bar.classList.add('on');
+  }else{
+    new IntersectionObserver(function(e){
+      var past=!e[0].isIntersecting;
+      hd.classList.toggle('on',past); bar.classList.toggle('on',past);
+    },{rootMargin:'-74px 0px 0px 0px'}).observe(hero);
 
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        var el=e.target,p=el.parentElement,i=0;
+        if(p&&el.classList.contains('t')){
+          var sib=[].slice.call(p.children).filter(function(n){return n.classList.contains('t')});
+          i=Math.max(0,sib.indexOf(el));
+        }
+        if(el.classList.contains('m')){
+          var ms=[].slice.call(el.parentElement.querySelectorAll('.m'));
+          i=Math.max(0,ms.indexOf(el));
+        }
+        el.style.transitionDelay=Math.min(i,6)*60+'ms';
+        var inner=el.querySelector(':scope > i');
+        if(inner) inner.style.transitionDelay=Math.min(i,6)*60+'ms';
+        el.classList.add('in'); io.unobserve(el);
+      });
+    },{rootMargin:'0px 0px -8% 0px',threshold:.05});
+    document.querySelectorAll('.rv,.t,.m,.eye,.step').forEach(function(n){io.observe(n)});
+  }
+  /* ヒーロー内は即時 */
   requestAnimationFrame(function(){
-    document.querySelectorAll('.hero .t').forEach(function(n,i){
-      n.style.transitionDelay=(110+i*70)+'ms'; n.classList.add('in');
+    document.querySelectorAll('.hero .t,.hero .m').forEach(function(n,i){
+      n.style.transitionDelay=(120+i*80)+'ms';
+      var inner=n.querySelector(':scope > i'); if(inner) inner.style.transitionDelay=(120+i*80)+'ms';
+      n.classList.add('in');
     });
   });
+
+  /* ---------- 数字が上がる ---------- */
+  var nums=[].slice.call(document.querySelectorAll('[data-n]'));
+  function count(el){
+    var to=+el.dataset.n,t0=null,dur=1100;
+    if(reduce){ el.textContent=to; return; }
+    function step(ts){
+      if(!t0) t0=ts;
+      var k=Math.min(1,(ts-t0)/dur), e=1-Math.pow(1-k,3);
+      el.textContent=Math.round(to*e);
+      if(k<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  if('IntersectionObserver' in window){
+    var nio=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting){ count(e.target); nio.unobserve(e.target); } });
+    },{threshold:.6});
+    nums.forEach(function(n){nio.observe(n)});
+  }else nums.forEach(function(n){n.textContent=n.dataset.n});
+
+  /* ---------- パララックス + 工程の線 ---------- */
+  var pxEls=[].slice.call(document.querySelectorAll('.px')),
+      steps=document.getElementById('steps'),
+      ticking=false;
+  function frame(){
+    ticking=false;
+    var vh=innerHeight;
+    for(var i=0;i<pxEls.length;i++){
+      var el=pxEls[i],r=el.getBoundingClientRect();
+      if(r.bottom<-200||r.top>vh+200) continue;
+      var k=(r.top+r.height/2-vh/2)/vh;      // -1 .. 1
+      el.style.transform='translate3d(0,'+(k*(+el.dataset.px||16)*-1).toFixed(2)+'px,0)';
+    }
+    if(steps){
+      var sr=steps.getBoundingClientRect(),
+          p=(vh*0.62-sr.top)/sr.height;
+      steps.style.setProperty('--prog',Math.max(0,Math.min(1,p))*100+'%');
+    }
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
+  if(!reduce){ addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll); frame(); }
 })();
 </script>
 </body>
