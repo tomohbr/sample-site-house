@@ -14,7 +14,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23121210'/%3E%3Cpath d='M6 20 16 11l10 9' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/r1.jpg" imagesrcset="img/r1@s.jpg 900w, img/r1.jpg 2400w" imagesizes="100vw">
+<link rel="preload" as="image" href="pano/p1.jpg" imagesrcset="pano/p1@s.jpg 2048w, pano/p1.jpg 4096w" imagesizes="100vw">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Archivo:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -101,35 +101,39 @@ nav a:hover{opacity:1}nav a:hover::after{transform:scaleX(1);transform-origin:le
 .b-o:hover::before{opacity:1}
 .b-wt{background:#fff;color:#121210}
 
-/* ===== HERO : ルームツアー ===== */
+/* ===== HERO : 360°ルームツアー ===== */
 .hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:#0a0a08}
 .stage{position:absolute;inset:0;overflow:hidden}
-/* 手持ちカメラの揺れ（歩いている感じ） */
-.walk{position:absolute;inset:-2.4%;animation:sway 11s ease-in-out infinite}
-@keyframes sway{
-  0%{transform:translate3d(0,0,0)}
-  22%{transform:translate3d(-8px,5px,0)}
-  47%{transform:translate3d(3px,-4px,0)}
-  71%{transform:translate3d(7px,4px,0)}
-  100%{transform:translate3d(0,0,0)}
-}
-/* 次の部屋は「戸口」から開いて、こちらが中へ入っていく */
-.slide{position:absolute;inset:0;opacity:0;clip-path:inset(4% 33% 4% 33%)}
-@media(max-width:640px){.slide{clip-path:inset(5% 22% 5% 22%)}}
-.slide img{width:100%;height:100%;object-fit:cover;transform:scale(1.22);transform-origin:var(--o,50% 50%)}
-.slide.on{opacity:1;clip-path:inset(0 0 0 0);
-  transition:opacity .5s linear,clip-path 1.4s cubic-bezier(.16,1,.3,1)}
-.slide.on img{transform:scale(1.015);
-  transition:transform calc(var(--tour) + 1500ms) cubic-bezier(.24,.5,.3,1)}
-/* 出ていく側は前へ抜ける（通り過ぎる） */
-.slide.out{opacity:0;clip-path:inset(0 0 0 0);
-  transition:opacity .85s ease-in,clip-path .85s ease-in}
-.slide.out img{transform:scale(1.42);transition:transform 1.05s cubic-bezier(.45,0,.75,.35)}
+#pano{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none;
+  cursor:grab;opacity:0;transition:opacity .8s var(--ease)}
+#pano.ready{opacity:1}
+#pano.drag{cursor:grabbing}
+.pfallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pfallback.gone{display:none}
+/* 戸口をくぐる瞬間の陰り */
+.door{position:absolute;inset:0;pointer-events:none;opacity:0;
+  background:radial-gradient(125% 92% at 50% 52%,#07070500 26%,#070705a6 62%,#070705 100%);
+  transition:opacity .34s linear}
+.door.on{opacity:1}
+/* 見回せることの合図 */
+.hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;
+  display:flex;align-items:center;gap:10px;padding:11px 18px;border:1px solid #ffffff4d;
+  background:#0a0a0859;backdrop-filter:blur(6px);color:#fff;font-size:12px;letter-spacing:.14em;
+  pointer-events:none;transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.hint svg{width:20px;height:14px;fill:none;stroke:currentColor;stroke-width:1.4}
+.hint.gone{opacity:0;transform:translate(-50%,-50%) scale(.96)}
+/* 部屋を見せたいので、文字の下だけ暗くする */
 .stage::after{content:"";position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(180deg,#0a0a089e 0,#0a0a081f 26%,#0a0a0885 64%,#0a0a08f0 100%),
-             linear-gradient(78deg,#0a0a08c9 0,#0a0a0847 46%,#0a0a0800 78%)}
+  background:linear-gradient(180deg,#0a0a0873 0,#0a0a0800 20%,#0a0a0800 44%,#0a0a0861 76%,#0a0a08cc 100%),
+             linear-gradient(96deg,#0a0a08b8 0,#0a0a0854 32%,#0a0a0800 62%)}
+@media(max-width:820px){
+  .stage::after{background:linear-gradient(180deg,#0a0a0880 0,#0a0a0808 18%,#0a0a0826 38%,#0a0a0894 70%,#0a0a08e0 100%)}
+}
 .hero .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;
-  color:#fff;padding-bottom:clamp(30px,6.4vh,72px)}
+  color:#fff;padding-bottom:clamp(30px,6.4vh,72px);
+  /* 文字の層がドラッグを奪わないように。押せるものだけ戻す */
+  pointer-events:none}
+.hero .wrap a,.hero .wrap button{pointer-events:auto}
 .kicker{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:.22em;color:#ffffffdb;margin-bottom:20px;text-shadow:0 1px 14px #000000a6}
 .kicker::before{content:"";width:36px;height:1px;background:#ffffff80;flex:none}
 .hero h1{font-size:clamp(30px,6.6vw,74px);font-weight:900;line-height:1.24;letter-spacing:.03em;text-shadow:0 2px 34px #00000073}
@@ -155,6 +159,17 @@ nav a:hover{opacity:1}nav a:hover::after{transform:scaleX(1);transform-origin:le
   font:inherit;font-size:10.5px;letter-spacing:.2em;padding:4px 0}
 .pause svg{width:9px;height:11px;fill:currentColor}
 .pause:hover{color:#fff}
+.tctl{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.next{-webkit-appearance:none;appearance:none;cursor:pointer;font:inherit;
+  display:inline-flex;align-items:center;gap:11px;padding:11px 20px;
+  border:1px solid #ffffff5c;background:#0a0a0838;backdrop-filter:blur(6px);color:#fff;
+  font-size:12.5px;font-weight:700;letter-spacing:.1em;
+  transition:background var(--f) var(--ease),border-color var(--f)}
+.next:hover{background:#ffffff1f;border-color:#fff}
+.next svg{width:22px;height:10px;fill:none;stroke:currentColor;stroke-width:1.5;
+  transition:transform var(--f) var(--ease)}
+.next:hover svg{transform:translateX(4px)}
+.next[disabled]{opacity:.45;cursor:default}
 
 /* ===== section ===== */
 section{padding:clamp(66px,9vw,150px) 0}
@@ -276,6 +291,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 .bar .btn{padding:14px 6px;font-size:13px}
 @media(min-width:980px){.bar{display:none}}
 </style>
+<script src="vendor/three.min.js"></script>
 </head>
 <body>
 
@@ -295,15 +311,16 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 <main id="top">
 
 <!-- HERO : ルームツアー -->
-<section class="hero" id="hero" aria-label="施工した家のルームツアー">
+<section class="hero" id="hero" aria-label="施工した家の360度ルームツアー">
   <div class="stage" id="stage">
-   <div class="walk" id="walk">
-    <div class="slide on" style="--o:50% 60%"><img src="img/r1.jpg" srcset="img/r1@s.jpg 900w, img/r1.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="木の外壁の外観" fetchpriority="high"></div>
-    <div class="slide" style="--o:40% 45%"><img src="img/r2.jpg" srcset="img/r2@s.jpg 900w, img/r2.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="玄関から続く階段と吹き抜け" loading="lazy"></div>
-    <div class="slide" style="--o:60% 50%"><img src="img/r3.jpg" srcset="img/r3@s.jpg 900w, img/r3.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="木の壁と大きな開口のあるリビング" loading="lazy"></div>
-    <div class="slide" style="--o:50% 40%"><img src="img/r4.jpg" srcset="img/r4@s.jpg 900w, img/r4.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="造作のキッチン" loading="lazy"></div>
-    <div class="slide" style="--o:45% 55%"><img src="img/r5.jpg" srcset="img/r5@s.jpg 900w, img/r5.jpg 2400w" sizes="100vw" width="2400" height="1600" alt="朝の光が入る寝室" loading="lazy"></div>
-   </div>
+    <canvas id="pano"></canvas>
+    <img class="pfallback" id="pfallback" src="img/r3.jpg" srcset="img/r3@s.jpg 900w, img/r3.jpg 2400w"
+         sizes="100vw" width="2400" height="1600" alt="木の壁と大きな開口のあるリビング" fetchpriority="high">
+    <div class="door" id="door" aria-hidden="true"></div>
+    <div class="hint" id="hint" aria-hidden="true">
+      <svg viewBox="0 0 24 16" aria-hidden="true"><path d="M4 8h16M4 8l3.5-3.5M4 8l3.5 3.5M20 8l-3.5-3.5M20 8l-3.5 3.5"/></svg>
+      ドラッグで見回せます
+    </div>
   </div>
 
   <div class="wrap">
@@ -318,13 +335,19 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
     <div class="tour t">
       <div class="room">
         <span class="rn">ROOM TOUR</span>
-        <span class="rt on" id="roomLabel">外観 — 焼杉と木の壁</span>
+        <span class="rt on" id="roomLabel">庭 — アプローチから</span>
       </div>
       <div class="dots" id="dots" role="tablist" aria-label="部屋を選ぶ"></div>
-      <button class="pause" id="pauseBtn" aria-pressed="false">
-        <svg viewBox="0 0 10 12" aria-hidden="true"><rect x="0" y="0" width="3" height="12"/><rect x="7" y="0" width="3" height="12"/></svg>
-        <span id="pauseTxt">PAUSE</span>
-      </button>
+      <div class="tctl">
+        <button class="pause" id="pauseBtn" aria-pressed="false">
+          <svg viewBox="0 0 10 12" aria-hidden="true"><rect x="0" y="0" width="3" height="12"/><rect x="7" y="0" width="3" height="12"/></svg>
+          <span id="pauseTxt">PAUSE</span>
+        </button>
+        <button class="next" id="nextBtn">
+          <span id="nextTxt">玄関ポーチへ</span>
+          <svg viewBox="0 0 22 10" aria-hidden="true"><path d="M0 5h20M20 5l-4.5-4.5M20 5l-4.5 4.5"/></svg>
+        </button>
+      </div>
     </div>
   </div>
 </section>
@@ -549,7 +572,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
     <p style="margin-top:12px">熊本県熊本市中央区サンプル町 0-0 ／ 9:00–18:00 ／ 日曜・祝日休</p>
     <div class="sample">
       <b>※ このページは Web制作のサンプルです。</b><br>
-      「株式会社 木戸建築設計」は実在しない架空の会社で、社名・人物・住所・電話番号・許可番号・施工事例・価格はすべて仮のものです。掲載写真は Unsplash のライセンス画像を使用しています。<br>
+      「株式会社 木戸建築設計」は実在しない架空の会社で、社名・人物・住所・電話番号・許可番号・施工事例・価格はすべて仮のものです。<br>掲載写真は Unsplash、360°ルームツアーは Poly Haven（CC0）のライセンス画像を使用しています。<br>
       制作：シバ（熊本）— お店・会社のHP・LP制作と、公開後の更新・管理
     </div>
   </div>
@@ -565,74 +588,203 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var hd=document.getElementById('hd'),bar=document.getElementById('bar'),hero=document.getElementById('hero');
 
-  /* ---------- ルームツアー ---------- */
+  /* ---------- 360°ルームツアー（庭 → 玄関 → 各室） ---------- */
   var ROOMS=[
-    {t:'外観 — 焼杉と木の壁'},
-    {t:'玄関 — 階段と吹き抜け'},
-    {t:'リビング — 東からの光'},
-    {t:'キッチン — 造作と無垢の床'},
-    {t:'寝室 — 朝の明るさ'}
+    {f:'pano/p1',n:'庭',        s:'アプローチから',    lon:270, next:'扉を開けて中へ'},
+    {f:'pano/p2',n:'玄関ホール', s:'台所へ続く',       lon: 45, next:'リビングへ'},
+    {f:'pano/p3',n:'リビング',   s:'木に囲まれた居間',  lon: 45, next:'寝室へ'},
+    {f:'pano/p5',n:'寝室',      s:'朝の光',           lon: 45, next:'洗面・浴室へ'},
+    {f:'pano/p6',n:'洗面・浴室', s:'天窓から',         lon: 90, next:'庭にもどる'}
   ];
-  var slides=[].slice.call(document.querySelectorAll('.slide')),
-      dots=document.getElementById('dots'),
-      label=document.getElementById('roomLabel'),
-      pauseBtn=document.getElementById('pauseBtn'),
-      pauseTxt=document.getElementById('pauseTxt'),
-      cur=0,timer=null,paused=reduce,visible=true;
-  var DUR=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tour'))||6800;
+  var dots=document.getElementById('dots'), label=document.getElementById('roomLabel'),
+      pauseBtn=document.getElementById('pauseBtn'), pauseTxt=document.getElementById('pauseTxt'),
+      nextBtn=document.getElementById('nextBtn'), nextTxt=document.getElementById('nextTxt'),
+      canvas=document.getElementById('pano'), fallback=document.getElementById('pfallback'),
+      door=document.getElementById('door'), hint=document.getElementById('hint'),
+      cur=0, timer=null, paused=reduce, visible=true, moving=false, tour=null;
+  var DUR=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--tour'))||6000;
+  var SMALL=innerWidth<900;
 
   ROOMS.forEach(function(r,i){
     var b=document.createElement('button');
     b.type='button'; b.setAttribute('role','tab');
-    b.setAttribute('aria-label',r.t);
-    b.setAttribute('aria-current',i===0?'true':'false');
+    b.setAttribute('aria-label',r.n); b.setAttribute('aria-current',i===0?'true':'false');
     b.innerHTML='<i></i>';
-    b.addEventListener('click',function(){go(i,true)});
+    b.addEventListener('click',function(){ if(tour) tour.go(i,true); });
     dots.appendChild(b);
   });
   var btns=[].slice.call(dots.children);
 
-  function go(i,manual){
-    if(i===cur&&!manual) return;
-    var prev=slides[cur];
-    prev.classList.remove('on');
-    prev.classList.add('out');
-    setTimeout(function(){ prev.classList.remove('out'); },1200);
-    btns[cur].setAttribute('aria-current','false');
-    btns[cur].classList.toggle('done', i>cur);
-    cur=i;
-    slides[cur].classList.remove('out');
-    slides[cur].classList.add('on');
-    // ラベルを差し替え（フェード）
+  function setLabel(i){
     label.classList.remove('on');
-    setTimeout(function(){ label.textContent=ROOMS[cur].t; label.classList.add('on'); },260);
-    btns.forEach(function(b,n){ b.classList.toggle('done', n<cur); });
-    var b=btns[cur]; b.setAttribute('aria-current','false');
-    void b.offsetWidth;                 // アニメーションを巻き戻す
-    b.setAttribute('aria-current','true');
-    if(!paused) schedule();
+    setTimeout(function(){
+      label.textContent=ROOMS[i].n+(ROOMS[i].s?' — '+ROOMS[i].s:'');
+      label.classList.add('on');
+    },240);
+    nextTxt.textContent=ROOMS[i].next;
+    btns.forEach(function(b,n){ b.classList.toggle('done',n<i); b.setAttribute('aria-current','false'); });
+    var b=btns[i]; void b.offsetWidth; b.setAttribute('aria-current','true');
   }
-  function schedule(){ clearTimeout(timer); timer=setTimeout(function(){ go((cur+1)%slides.length); },DUR); }
+  function schedule(){ clearTimeout(timer);
+    if(paused||!visible||reduce) return;
+    timer=setTimeout(function(){ if(tour) tour.go((cur+1)%ROOMS.length); },DUR); }
   function setPaused(p){
     paused=p; pauseBtn.setAttribute('aria-pressed',String(p));
     pauseTxt.textContent=p?'PLAY':'PAUSE';
-    btns[cur].style.animationPlayState=p?'paused':'running';
     document.querySelectorAll('.dots button i').forEach(function(n){n.style.animationPlayState=p?'paused':'running'});
     if(p) clearTimeout(timer); else schedule();
   }
-  pauseBtn.addEventListener('click',function(){ setPaused(!paused) });
+  pauseBtn.addEventListener('click',function(){ setPaused(!paused); });
+  nextBtn.addEventListener('click',function(){ if(tour) tour.go((cur+1)%ROOMS.length,true); });
+
+  /* --- WebGL が使えるか --- */
+  function hasGL(){
+    try{ var c=document.createElement('canvas');
+      return !!(window.WebGLRenderingContext && (c.getContext('webgl')||c.getContext('experimental-webgl'))); }
+    catch(e){ return false; }
+  }
+
+  if(!window.THREE || !hasGL()){
+    /* 平面写真のまま（回せないので操作UIは出さない） */
+    canvas.style.display='none'; hint.style.display='none';
+    nextBtn.style.display='none'; pauseBtn.style.display='none';
+    setLabel(0);
+  }else{
+    tour=(function(){
+      var R=500, W=innerWidth, H=innerHeight;
+      var renderer=new THREE.WebGLRenderer({canvas:canvas,antialias:false,alpha:false});
+      renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));
+      renderer.setSize(W,H,false);
+      renderer.outputEncoding=THREE.sRGBEncoding;
+      var scene=new THREE.Scene();
+      var camera=new THREE.PerspectiveCamera(72,W/H,1,1200);
+      var geo=new THREE.SphereGeometry(R,64,40); geo.scale(-1,1,1);
+      var loader=new THREE.TextureLoader();
+      var cache={}, meshes={}, lon=ROOMS[0].lon, lat=0, vlon=0, vlat=0;
+      var dragging=false, px=0, py=0, touched=false, fwd=new THREE.Vector3(), tgt=new THREE.Vector3();
+
+      function url(i){ return ROOMS[i].f+(SMALL?'@s':'')+'.jpg'; }
+      function load(i,cb){
+        if(cache[i]){ cb&&cb(cache[i]); return; }
+        loader.load(url(i),function(tx){
+          tx.encoding=THREE.sRGBEncoding; tx.minFilter=THREE.LinearFilter; tx.generateMipmaps=false;
+          cache[i]=tx; cb&&cb(tx);
+        },undefined,function(){ cb&&cb(null); });
+      }
+      function mesh(i,tx){
+        if(meshes[i]) return meshes[i];
+        var m=new THREE.Mesh(geo,new THREE.MeshBasicMaterial({map:tx,transparent:true,opacity:0,depthWrite:false}));
+        m.renderOrder=1; scene.add(m); meshes[i]=m; return m;
+      }
+
+      /* 見回す */
+      function down(e){ dragging=true; touched=true; canvas.classList.add('drag');
+        hint.classList.add('gone'); px=e.clientX; py=e.clientY; vlon=vlat=0;
+        canvas.setPointerCapture&&canvas.setPointerCapture(e.pointerId); }
+      function move(e){ if(!dragging) return;
+        var dx=e.clientX-px, dy=e.clientY-py; px=e.clientX; py=e.clientY;
+        vlon=-dx*0.13; vlat=dy*0.13; lon+=vlon; lat+=vlat;
+        lat=Math.max(-72,Math.min(72,lat)); }
+      function up(e){ dragging=false; canvas.classList.remove('drag');
+        canvas.releasePointerCapture&&e&&e.pointerId!=null&&canvas.releasePointerCapture(e.pointerId); }
+      canvas.addEventListener('pointerdown',down);
+      canvas.addEventListener('pointermove',move);
+      addEventListener('pointerup',up); addEventListener('pointercancel',up);
+
+      /* 部屋を移る = その部屋の方を向いて、前へ歩く */
+      function go(i,manual){
+        if(moving || (i===cur && !manual)) return;
+        clearTimeout(timer);
+        var from=cur; cur=i; setLabel(i);
+        moving=true; nextBtn.disabled=true;
+        load(i,function(tx){
+          if(!tx){ moving=false; nextBtn.disabled=false; schedule(); return; }
+          var out=meshes[from], inn=mesh(i,tx);
+          inn.material.map=tx; inn.material.needsUpdate=true;
+
+          /* 向きは切らずに、進む方角へ回りながら入る */
+          var lonFrom=lon, lonTo=ROOMS[i].lon, latFrom=lat;
+          while(lonTo-lonFrom>180) lonTo-=360;
+          while(lonTo-lonFrom<-180) lonTo+=360;
+          vlon=vlat=0;
+          fwd.setFromSphericalCoords(1,THREE.MathUtils.degToRad(90),THREE.MathUtils.degToRad(lonTo)).normalize();
+
+          var t0=null, T=1500;
+          door.classList.add('on');
+          function step(ts){
+            if(!t0) t0=ts;
+            var k=Math.min(1,(ts-t0)/T),
+                eo=k*k,                        /* 出る側は加速して抜ける */
+                ei=1-Math.pow(1-k,3);          /* 入る側は減速して着地 */
+            lon=lonFrom+(lonTo-lonFrom)*ei;
+            lat=latFrom*(1-ei);
+            if(out){ out.material.opacity=Math.max(0,1-k*1.7);
+                     out.position.copy(fwd).multiplyScalar(-R*0.62*eo); }
+            inn.material.opacity=Math.min(1,k*1.5);
+            inn.position.copy(fwd).multiplyScalar(R*0.46*(1-ei));
+            if(k>0.55) door.classList.remove('on');
+            if(k<1) requestAnimationFrame(step);
+            else{
+              if(out){ out.material.opacity=0; out.position.set(0,0,0); }
+              inn.material.opacity=1; inn.position.set(0,0,0);
+              lon=lonTo; lat=0;
+              moving=false; nextBtn.disabled=false; schedule();
+              load((i+1)%ROOMS.length);       /* 次の部屋を先読み */
+            }
+          }
+          requestAnimationFrame(step);
+        });
+      }
+
+      /* 描画 */
+      var raf=null;
+      function frame(){
+        raf=requestAnimationFrame(frame);
+        if(!dragging){
+          lon+=vlon; lat+=vlat; vlon*=0.94; vlat*=0.94;
+          lat=Math.max(-72,Math.min(72,lat));
+          if(!paused&&!reduce&&Math.abs(vlon)<0.02) lon+=0.028;   // ゆっくり見回し続ける
+        }
+        var phi=THREE.MathUtils.degToRad(90-lat), th=THREE.MathUtils.degToRad(lon);
+        tgt.setFromSphericalCoords(1,phi,th);
+        camera.lookAt(tgt);
+        renderer.render(scene,camera);
+      }
+      function start(){ if(!raf) frame(); }
+      function stop(){ if(raf){ cancelAnimationFrame(raf); raf=null; } }
+
+      addEventListener('resize',function(){
+        W=innerWidth; H=innerHeight;
+        camera.aspect=W/H; camera.updateProjectionMatrix(); renderer.setSize(W,H,false);
+      });
+
+      load(0,function(tx){
+        if(!tx){ canvas.style.display='none'; hint.style.display='none';
+                 nextBtn.style.display='none'; return; }
+        var m=mesh(0,tx); m.material.opacity=1;
+        canvas.classList.add('ready');
+        setTimeout(function(){ fallback.classList.add('gone'); },900);
+        start(); setLabel(0); schedule();
+        if(reduce||SMALL) setTimeout(function(){ hint.classList.add('gone'); },6000);
+        load(1);
+      });
+
+      return {go:go,start:start,stop:stop};
+    })();
+  }
+
   document.addEventListener('visibilitychange',function(){
-    if(document.hidden){ clearTimeout(timer); } else if(!paused && visible){ schedule(); }
+    if(document.hidden){ clearTimeout(timer); tour&&tour.stop(); }
+    else{ tour&&tour.start(); schedule(); }
   });
-  if(!reduce){
-    schedule();
-    if('IntersectionObserver' in window){
-      new IntersectionObserver(function(e){
-        visible=e[0].isIntersecting;
-        if(!visible){ clearTimeout(timer); } else if(!paused){ schedule(); }
-      },{threshold:.15}).observe(hero);
-    }
-  }else{ pauseBtn.style.display='none'; }
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(e){
+      visible=e[0].isIntersecting;
+      if(!visible){ clearTimeout(timer); tour&&tour.stop(); }
+      else{ tour&&tour.start(); schedule(); }
+    },{threshold:.12}).observe(hero);
+  }
+  if(reduce) pauseBtn.style.display='none';
 
   /* ---------- 出現（写真は左から開く / 見出しは行が上がる） ---------- */
   if(!('IntersectionObserver' in window)){
