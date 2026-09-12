@@ -278,6 +278,9 @@ h2{font-size:clamp(23px,3.4vw,42px);font-weight:900;letter-spacing:.045em;line-h
 .band .acts{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:34px}
 
 /* ===== footer / bar ===== */
+.credit{display:block;margin-top:6px}
+.brandmark{width:14px;height:auto;display:inline-block;vertical-align:-2px;margin-right:6px;color:currentColor;overflow:visible}
+
 footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom));font-size:12.5px;color:var(--sub);border-top:1px solid var(--rule)}
 @media(min-width:980px){footer{padding-bottom:clamp(46px,5.5vw,70px)}}
 .fb{display:flex;align-items:center;gap:11px;color:var(--ink)}
@@ -573,7 +576,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
     <div class="sample">
       <b>※ このページは Web制作のサンプルです。</b><br>
       「株式会社 木戸建築設計」は実在しない架空の会社で、社名・人物・住所・電話番号・許可番号・施工事例・価格はすべて仮のものです。<br>掲載写真は Unsplash、360°ルームツアーは Poly Haven（CC0）のライセンス画像を使用しています。<br>
-      制作：シバ（熊本）— お店・会社のHP・LP制作と、公開後の更新・管理
+      <span class="credit"><svg class="brandmark" viewBox="-1.5 -1.5 43 46" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="アシログ"><path d="M18 37 C18 26 17 13 23 0"/><path d="M23 0 C29 4 29 11 24 14"/><path d="M0 37 H40"/><path d="M8 43 H32"/></svg>制作：アシログ（熊本）— お店・会社のHP・LP制作と、公開後の更新・管理</span>
     </div>
   </div>
 </footer>
