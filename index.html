@@ -295,7 +295,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 @media(min-width:980px){.bar{display:none}}
 </style>
 <script src="vendor/three.min.js"></script>
-<style id="nobr-css">/* 1文字だけの行を出さない（アシログ 2026-10-29） */h1,h2,h3,h4{text-wrap:balance}p,li,dd,dt,td,th,figcaption,summary,blockquote{text-wrap:pretty}</style>
+<style id="nobr-css">/* 1文字だけの行を出さない（アシログ） */h1,h2,h3,h4{text-wrap:balance}p,li,dd,dt,td,th,figcaption,summary,blockquote{text-wrap:pretty}</style>
 </head>
 <body>
 
@@ -872,6 +872,20 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   if(!reduce){ addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll); frame(); }
 })();
 </script>
+<aside id="ashilog-band" aria-label="この見本サイトについて">
+<style>#ashilog-band{background:#1F1F1F;color:#fff;font-family:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP",system-ui,sans-serif;padding:28px 20px calc(28px + env(safe-area-inset-bottom));letter-spacing:.04em}
+#ashilog-band .ab-in{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:16px 28px}
+#ashilog-band .ab-t{flex:1 1 300px;margin:0;line-height:1.8;font-size:14px}
+#ashilog-band .ab-t b{display:block;font-size:16px;font-weight:700}
+#ashilog-band .ab-t svg{width:18px;height:20px;vertical-align:-3px;margin-right:6px}
+#ashilog-band .ab-acts{display:flex;flex-wrap:wrap;gap:12px}
+#ashilog-band a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 22px;border-radius:8px;font-weight:700;font-size:14px;text-decoration:none;letter-spacing:.06em}
+#ashilog-band .ab-main{background:#E8461C;color:#fff}
+#ashilog-band .ab-sub{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.7)}
+@media (max-width:600px){#ashilog-band .ab-acts{width:100%}#ashilog-band a{flex:1 1 100%}}</style>
+<div class="ab-in"><p class="ab-t"><b><svg viewBox="-1.5 -1.5 43 46" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"><path d="M18 37 C18 26 17 13 23 0"/><path d="M23 0 C29 4 29 11 24 14"/><path d="M0 37 H40"/><path d="M8 43 H32"/></g></svg>この見本は、アシログ（熊本）が作りました</b>あなたのお店でも、同じ形で作れます。まずは無料診断（1分・URLとメールだけ）から。</p>
+<div class="ab-acts"><a class="ab-main" href="https://ashilog.jp/?utm_source=sample-house&amp;utm_medium=band&amp;utm_campaign=samples#contact" target="_top">無料診断を申し込む</a><a class="ab-sub" href="https://ashilog.jp/works/house/?utm_source=sample-house&amp;utm_medium=band&amp;utm_campaign=samples" target="_top">この業種の作り方</a></div></div>
+</aside>
 <script id="nobr">
 /* 1文字だけ次の行に送られる「泣き別れ」をなくす（2026-10-29 本人「1文字だけ改行されるのは全部直して」）
    表示したあとに行を数え、最後の1文字（句読点は数えない）だけの行があれば、その文字を前の2文字とつなげる（U+2060 を挟む）。
