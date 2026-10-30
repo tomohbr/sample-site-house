@@ -293,6 +293,51 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 .bar.on{transform:none}
 .bar .btn{padding:14px 6px;font-size:13px}
 @media(min-width:980px){.bar{display:none}}
+
+/* ===== v2（2026-10-30）総額の目安・見学会・常に出る予約 ===== */
+.sim{margin-top:clamp(40px,5vw,64px);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--ink)}
+.sim-q{padding:clamp(22px,3vw,36px)}
+.sim-q h3{font-size:13px;letter-spacing:.14em;color:var(--sub);margin:22px 0 10px;font-weight:700}
+.sim-q h3:first-child{margin-top:0}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{appearance:none;font:inherit;font-size:14px;font-weight:700;border:1px solid var(--rule);background:#fff;color:var(--ink);min-height:44px;padding:0 16px;cursor:pointer;transition:all .2s}
+.seg button[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:#fff}
+.rng{display:flex;align-items:center;gap:14px}
+.rng input{flex:1;accent-color:var(--wood);height:44px}
+.rng output{font-family:Archivo,sans-serif;font-weight:600;font-size:24px;min-width:4.6em;text-align:right}
+.rng output small{font-family:"Zen Kaku Gothic New",sans-serif;font-size:12px;color:var(--sub);margin-left:2px}
+.sim-a{background:var(--bg2);padding:clamp(22px,3vw,36px);border-left:1px solid var(--ink)}
+.sim-a .eye{display:block}
+.sim-a .tot{margin-top:8px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(44px,5vw,64px);line-height:1.05;font-variant-numeric:tabular-nums}
+.sim-a .tot small{font-family:"Zen Kaku Gothic New",sans-serif;font-size:15px;font-weight:700;margin-left:4px}
+.sim-a ul{margin-top:14px;border-top:1px solid var(--rule)}
+.sim-a li{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.sim-a li b{font-family:Archivo,sans-serif;font-weight:600}
+.sim-a .mon{margin-top:16px;padding:14px 16px;background:#fff;border-left:3px solid var(--wood);font-size:14px;line-height:1.8}
+.sim-a .mon b{font-family:Archivo,sans-serif;font-size:22px;font-weight:600;margin:0 4px}
+.sim-a .fine{margin-top:10px;font-size:12px;color:var(--sub)}
+.oh{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.6vw,20px);margin-top:clamp(34px,4.4vw,58px)}
+.oh article{border:1px solid var(--rule);background:#fff;display:flex;flex-direction:column}
+.oh figure{aspect-ratio:4/3;overflow:hidden}
+.oh figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease)}
+.oh article:hover img{transform:scale(1.05)}
+.oh .in{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+.oh .date{font-family:Archivo,sans-serif;font-weight:600;font-size:26px;line-height:1.1}
+.oh .date small{font-family:"Zen Kaku Gothic New",sans-serif;font-size:13px;font-weight:700;margin-left:6px}
+.oh h3{margin-top:8px;font-size:16px;letter-spacing:.06em}
+.oh p{margin-top:4px;font-size:13px;color:var(--sub);line-height:1.8;flex:1}
+.oh .left{margin-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
+.oh .left b{color:var(--wood)}
+.oh button{appearance:none;font:inherit;font-size:13px;font-weight:700;border:1px solid var(--ink);background:var(--ink);color:#fff;min-height:42px;padding:0 16px;cursor:pointer}
+.oh button[aria-pressed=true]{background:var(--wood);border-color:var(--wood)}
+.oh-msg{margin-top:16px;min-height:1.8em;font-size:14px}
+.oh-msg b{color:var(--wood)}
+.pill{position:fixed;right:24px;bottom:24px;z-index:55;display:flex;gap:6px;padding:6px;background:#fffffff2;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 18px 40px -20px rgba(18,18,16,.5),inset 0 0 0 1px var(--rule);transform:translateY(160%);transition:transform var(--f) var(--ease)}
+.pill.on{transform:none}
+.pill a{display:inline-flex;align-items:center;min-height:46px;padding:0 20px;font-size:13.5px;font-weight:700;letter-spacing:.08em}
+.pill a:first-child{background:var(--ink);color:#fff}
+@media(max-width:979px){.pill{display:none}}
+@media(max-width:860px){.sim,.oh{grid-template-columns:minmax(0,1fr)}.sim-a{border-left:0;border-top:1px solid var(--ink)}}
 </style>
 <script src="vendor/three.min.js"></script>
 <style id="nobr-css">/* 1文字だけの行を出さない（アシログ） */h1,h2,h3,h4{text-wrap:balance}p,li,dd,dt,td,th,figcaption,summary,blockquote{text-wrap:pretty}</style>
@@ -318,7 +363,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 <section class="hero" id="hero" aria-label="施工した家の360度ルームツアー">
   <div class="stage" id="stage">
     <canvas id="pano"></canvas>
-    <img class="pfallback" id="pfallback" src="img/r3.jpg" srcset="img/r3@s.jpg 900w, img/r3.jpg 2400w"
+    <img class="pfallback" id="pfallback" src="img/r3.webp" srcset="img/r3@s.webp 900w, img/r3.webp 2400w"
          sizes="100vw" width="2400" height="1600" alt="木の壁と大きな開口のあるリビング" fetchpriority="high">
     <div class="door" id="door" aria-hidden="true"></div>
     <div class="hint" id="hint" aria-hidden="true">
@@ -384,7 +429,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 
     <div class="cases">
       <article class="case">
-        <figure class="rv"><img class="px" data-px="18" src="img/c1@s.jpg" srcset="img/c1@s.jpg 880w, img/c1.jpg 1899w" sizes="(min-width:900px) 64vw, 100vw" width="1899" height="1266" alt="大きな窓から光が入る、木を使ったリビング" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="18" src="img/c1@s.webp" srcset="img/c1@s.webp 880w, img/c1.webp 1899w" sizes="(min-width:900px) 64vw, 100vw" width="1899" height="1266" alt="大きな窓から光が入る、木を使ったリビング" loading="lazy"></figure>
         <div>
           <span class="cno t">CASE 01</span>
           <h3><span class="m"><i>阿蘇の、朝日で起きる家</i></span></h3>
@@ -400,7 +445,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
       </article>
 
       <article class="case">
-        <figure class="rv"><img class="px" data-px="18" src="img/c2@s.jpg" srcset="img/c2@s.jpg 880w, img/c2.jpg 2400w" sizes="(min-width:900px) 64vw, 100vw" width="2400" height="1600" alt="キッチンとつながる、木を使った広いリビング" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="18" src="img/c2@s.webp" srcset="img/c2@s.webp 880w, img/c2.webp 2400w" sizes="(min-width:900px) 64vw, 100vw" width="2400" height="1600" alt="キッチンとつながる、木を使った広いリビング" loading="lazy"></figure>
         <div>
           <span class="cno t">CASE 02</span>
           <h3><span class="m"><i>台所に、人が集まる家</i></span></h3>
@@ -416,7 +461,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
       </article>
 
       <article class="case">
-        <figure class="rv"><img class="px" data-px="18" src="img/c3@s.jpg" srcset="img/c3@s.jpg 880w, img/c3.jpg 2400w" sizes="(min-width:900px) 64vw, 100vw" width="2400" height="1600" alt="無垢の床とやわらかい光のあるリビング" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="18" src="img/c3@s.webp" srcset="img/c3@s.webp 880w, img/c3.webp 2400w" sizes="(min-width:900px) 64vw, 100vw" width="2400" height="1600" alt="無垢の床とやわらかい光のあるリビング" loading="lazy"></figure>
         <div>
           <span class="cno t">CASE 03</span>
           <h3><span class="m"><i>築42年を、住み継ぐ</i></span></h3>
@@ -436,7 +481,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 
 <!-- FULL BLEED -->
 <div class="bleed" aria-hidden="true">
-  <div class="px" data-px="42"><img src="img/g2@s.jpg" srcset="img/g2@s.jpg 900w, img/g2.jpg 1280w" sizes="100vw" width="1280" height="1600" alt="" loading="lazy"></div>
+  <div class="px" data-px="42"><img src="img/g2@s.webp" srcset="img/g2@s.webp 900w, img/g2.webp 1280w" sizes="100vw" width="1280" height="1600" alt="" loading="lazy"></div>
   <div class="wrap cap"><span class="m"><i>木は、建ててからも動きます。</i></span></div>
 </div>
 
@@ -449,19 +494,19 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
     </div>
     <div class="bgrid">
       <div class="bcard">
-        <figure class="rv"><img class="px" data-px="14" src="img/d1@s.jpg" srcset="img/d1@s.jpg 880w, img/d1.jpg 1694w" sizes="(min-width:860px) 31vw, 100vw" width="1694" height="2118" alt="木の床と、静かな窓辺" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="14" src="img/d1@s.webp" srcset="img/d1@s.webp 880w, img/d1.webp 1694w" sizes="(min-width:860px) 31vw, 100vw" width="1694" height="2118" alt="木の床と、静かな窓辺" loading="lazy"></figure>
         <span class="n t">01</span>
         <h3><span class="m"><i>図面より先に、</i></span><span class="m"><i>暮らしを聞きます</i></span></h3>
         <p class="t">初回は間取りの話をしません。起きる時間、洗濯を干す場所、来客の頻度。それが決まると間取りはほぼ決まります。</p>
       </div>
       <div class="bcard">
-        <figure class="rv"><img class="px" data-px="14" src="img/d2@s.jpg" srcset="img/d2@s.jpg 880w, img/d2.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="造作のキッチンと、木の床" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="14" src="img/d2@s.webp" srcset="img/d2@s.webp 880w, img/d2.webp 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="造作のキッチンと、木の床" loading="lazy"></figure>
         <span class="n t">02</span>
         <h3><span class="m"><i>見積に、</i></span><span class="m"><i>一式と書きません</i></span></h3>
         <p class="t">材料と手間を分けて出します。減らせるところとそうでないところを、ご自分で判断できる状態にしてから着工します。</p>
       </div>
       <div class="bcard">
-        <figure class="rv"><img class="px" data-px="14" src="img/g1@s.jpg" srcset="img/g1@s.jpg 900w, img/g1.jpg 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="洗面まわりの造作" loading="lazy"></figure>
+        <figure class="rv"><img class="px" data-px="14" src="img/g1@s.webp" srcset="img/g1@s.webp 900w, img/g1.webp 1280w" sizes="(min-width:860px) 31vw, 100vw" width="1280" height="1600" alt="洗面まわりの造作" loading="lazy"></figure>
         <span class="n t">03</span>
         <h3><span class="m"><i>引き渡してから、</i></span><span class="m"><i>10年通います</i></span></h3>
         <p class="t">半年・1年・2年・5年・10年に点検にうかがいます。木は動くものなので、建てて終わりにはできません。</p>
@@ -504,7 +549,37 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
       <li class="t"><span class="n">部分リフォーム<span class="d">水まわり1か所から承ります</span></span><span class="v">45<em>万円〜</em></span></li>
       <li class="t"><span class="n">実施設計料<span class="d">着工時に建築費へ充当します</span></span><span class="v">本体の8<em>%</em></span></li>
     </ul>
-    <p class="note t">総額の考え方：本体価格 ＋ 付帯工事（本体の15〜20%）＋ 諸費用（同 6〜8%）。初回相談で、ご希望の条件に当てはめた実額をお出しします。</p>
+    <p class="note t">総額の考え方：本体価格 ＋ 付帯工事（本体の15〜20%）＋ 諸費用（同 6〜8%）。下で、面積を動かすと総額と毎月の返済のめやすが出ます。</p>
+    <div class="sim t" id="sim">
+      <div class="sim-q">
+        <h3>建てる・直す</h3>
+        <div class="seg" id="s-kind" role="group" aria-label="工事の種類"><button type="button" data-k="new" aria-pressed="true">注文住宅（2階建）</button><button type="button" data-k="flat" aria-pressed="false">平屋</button><button type="button" data-k="reno" aria-pressed="false">全面リノベーション</button></div>
+        <h3>延床面積</h3>
+        <div class="rng"><input type="range" id="s-tsubo" min="20" max="50" step="1" value="32" aria-label="延床面積（坪）"><output id="s-tsubo-o">32<small>坪</small></output></div>
+        <h3>毎月の返済（35年・固定 1.8% の例）</h3>
+        <div class="seg" id="s-down" role="group" aria-label="頭金"><button type="button" data-d="0" aria-pressed="true">頭金なし</button><button type="button" data-d="300" aria-pressed="false">頭金 300万円</button><button type="button" data-d="500" aria-pressed="false">頭金 500万円</button></div>
+      </div>
+      <div class="sim-a" aria-live="polite">
+        <span class="eye">TOTAL / 建物の総額の目安（税込）</span>
+        <p class="tot"><span id="s-tot">0</span><small>万円</small></p>
+        <ul id="s-bd"></ul>
+        <p class="mon">毎月の返済のめやす<b id="s-mon">0</b>円<br><span style="font-size:12.5px;color:var(--sub)">ボーナス払いなし。土地代は含みません</span></p>
+        <p class="fine">見本の計算です。実際の総額と返済は、初回相談で条件に当てはめてお出しします。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPEN HOUSE -->
+<section style="padding-top:0" id="openhouse">
+  <div class="wrap mid">
+    <div class="head">
+      <span class="eye">OPEN HOUSE</span>
+      <h2><span class="m"><i>建てた家を、</i></span><span class="m"><i>見に来てください。</i></span></h2>
+      <p class="lead t">お引き渡し前のお宅を、施主さんのご厚意で見せていただいています。1組ずつのご案内なので、ほかのお客さんと一緒になりません。</p>
+    </div>
+    <div class="oh" id="oh"></div>
+    <p class="oh-msg t" id="oh-msg" aria-live="polite"></p>
   </div>
 </section>
 
@@ -528,7 +603,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 <!-- COMPANY -->
 <section id="company" class="belief">
   <div class="wrap co">
-    <figure class="rv"><img class="px" data-px="16" src="img/co@s.jpg" srcset="img/co@s.jpg 880w, img/co.jpg 2136w" sizes="(min-width:900px) 46vw, 100vw" width="2136" height="1602" alt="事務所の打ち合わせスペース" loading="lazy"></figure>
+    <figure class="rv"><img class="px" data-px="16" src="img/co@s.webp" srcset="img/co@s.webp 880w, img/co.webp 2136w" sizes="(min-width:900px) 46vw, 100vw" width="2136" height="1602" alt="事務所の打ち合わせスペース" loading="lazy"></figure>
     <div>
       <div class="head">
         <span class="eye">COMPANY</span>
@@ -550,7 +625,7 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
 
 <!-- CONTACT -->
 <section class="band" id="contact">
-  <div class="ph"><img class="px" data-px="34" src="img/band@s.jpg" srcset="img/band@s.jpg 880w, img/band.jpg 2400w" sizes="100vw" width="2400" height="1350" alt="" loading="lazy" aria-hidden="true"></div>
+  <div class="ph"><img class="px" data-px="34" src="img/band@s.webp" srcset="img/band@s.webp 880w, img/band.webp 2400w" sizes="100vw" width="2400" height="1350" alt="" loading="lazy" aria-hidden="true"></div>
   <div class="wrap tight">
     <div class="head">
       <span class="eye">CONTACT</span>
@@ -582,9 +657,10 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   </div>
 </footer>
 
+<div class="pill" id="pill"><a href="#openhouse">見学会を予約</a><a href="#contact">無料相談</a></div>
 <div class="bar" id="bar">
-  <a class="btn b-ink" href="#contact"><span>無料相談</span></a>
-  <a class="btn b-o" href="tel:0960000000"><span>電話する</span></a>
+  <a class="btn b-ink" href="#openhouse"><span>見学会を予約</span></a>
+  <a class="btn b-o" href="#contact"><span>無料相談</span></a>
 </div>
 
 <script>
@@ -870,6 +946,34 @@ footer{padding:clamp(46px,5.5vw,70px) 0 calc(86px + env(safe-area-inset-bottom))
   }
   function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(frame); } }
   if(!reduce){ addEventListener('scroll',onScroll,{passive:true}); addEventListener('resize',onScroll); frame(); }
+})();
+</script>
+
+<script>
+/* v2（2026-10-30）総額の目安・見学会・常に出る予約 */
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  var U={new:78,flat:85,reno:48}, kind='new', down=0;
+  function calc(){
+    var t=+$('#s-tsubo').value; $('#s-tsubo-o').innerHTML=t+'<small>坪</small>';
+    var body=Math.round(U[kind]*t), extra=Math.round(body*(kind==='reno'?.08:.18)), misc=Math.round(body*.07), tot=body+extra+misc;
+    $('#s-tot').textContent=tot.toLocaleString('ja-JP');
+    $('#s-bd').innerHTML='<li><span>本体（'+U[kind]+'万円 × '+t+'坪）</span><b>'+body.toLocaleString('ja-JP')+'万円</b></li><li><span>'+(kind==='reno'?'解体・仮住まいなど':'付帯工事（外構・給排水・地盤）')+'</span><b>'+extra.toLocaleString('ja-JP')+'万円</b></li><li><span>諸費用（登記・ローン・保険）</span><b>'+misc.toLocaleString('ja-JP')+'万円</b></li>';
+    var P=Math.max(0,tot-down)*10000, r=.018/12, n=420, m=P? Math.round(P*r/(1-Math.pow(1+r,-n))):0;
+    $('#s-mon').textContent=m.toLocaleString('ja-JP');
+  }
+  function seg(id,fn){$$('#'+id+' button').forEach(function(b){b.addEventListener('click',function(){$$('#'+id+' button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});fn(b);calc();})})}
+  seg('s-kind',function(b){kind=b.dataset.k}); seg('s-down',function(b){down=+b.dataset.d});
+  $('#s-tsubo').addEventListener('input',calc); calc();
+  // 見学会：次の土日を3回（今日に合わせて動く）
+  var W='日月火水木金土', d=new Date(), list=[], k=0;
+  for(var i=1;list.length<3&&i<30;i++){var x=new Date(d.getFullYear(),d.getMonth(),d.getDate()+i); if(x.getDay()===6||x.getDay()===0) list.push(x);}
+  var H=[['c1','阿蘇郡・平屋','木の天井と、東の大きな窓。断熱等級6の冬を体感できます。','10:00 / 13:00 / 15:00',2],['d2','熊本市東区・2階建','家の真ん中の台所と、段差のないダイニング。','10:00 / 13:00',1],['c3','菊池市・リノベーション','築42年の柱と梁を残した家。建て替えとの比較表もお見せします。','11:00 / 14:00',3]];
+  $('#oh').innerHTML=list.map(function(x,i){var h=H[i];return '<article><figure><img src="img/'+h[0]+'@s.webp" alt="" loading="lazy"></figure><div class="in"><p class="date">'+(x.getMonth()+1)+'/'+x.getDate()+'<small>（'+W[x.getDay()]+'）</small></p><h3>'+h[1]+'</h3><p>'+h[2]+'<br>時間：'+h[3]+'</p><div class="left"><span>のこり <b>'+h[4]+'組</b></span><button type="button" aria-pressed="false" data-i="'+i+'">この日を予約</button></div></div></article>'}).join('');
+  $$('#oh button').forEach(function(b){b.addEventListener('click',function(){$$('#oh button').forEach(function(x){x.setAttribute('aria-pressed',x===b);x.textContent=x===b?'選びました':'この日を予約'});var x=list[+b.dataset.i];$('#oh-msg').innerHTML='<b>'+(x.getMonth()+1)+'月'+x.getDate()+'日（'+W[x.getDay()]+'）・'+H[+b.dataset.i][1]+'</b> を選びました。LINEで時間を返信すると予約が確定します（見本なので、ここまでです）。';});});
+  // PC の右下の予約
+  var pill=$('#pill'), hero=$('#hero');
+  addEventListener('scroll',function(){pill.classList.toggle('on', scrollY>hero.offsetHeight*.8)},{passive:true});
 })();
 </script>
 <aside id="ashilog-band" aria-label="この見本サイトについて">
